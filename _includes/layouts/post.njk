@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+templateClass: tmpl-post
+---
+
+{# Optional Cover Image #}
+{%- if cover_image %}<img src="{{cover_image}}" alt="{{cover_image_alt}}"/>{% endif %}
+
+<h1>{{ title }}</h1>
+
+<time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+{%- for tag in tags | filterTagList -%}
+{%- set tagUrl %}/tags/{{ tag | slug }}/{% endset -%}
+<a href="{{ tagUrl | url }}" class="post-tag">{{ tag }}</a>
+{%- endfor %}
+
+{{ content | safe }}

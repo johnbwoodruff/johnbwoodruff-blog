@@ -1,0 +1,21 @@
+{
+  "title": "John B Woodruff",
+  "url": "https://johnbwoodruff.com/",
+  "language": "en",
+  "description": "My Musings",
+  "feed": {
+    "subtitle": "My Musings",
+    "filename": "feed.xml",
+    "path": "/feed/feed.xml",
+    "id": "https://johnbwoodruff.com/"
+  },
+  "jsonfeed": {
+    "path": "/feed/feed.json",
+    "url": "https://johnbwoodruff.com/feed/feed.json"
+  },
+  "author": {
+    "name": "John Woodruff",
+    "email": "johnwoodruff91@gmail.com",
+    "url": "https://johnbwoodruff.com/about-me/"
+  }
+}

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+
+:root {
+  --font-family: 'Source Sans Pro', sans-serif;
+
+  --background: #FAFAFA;
+
+  --primary: #1E69A8;
+
+  --text-default: rgba(0,0,0,0.8);
+  --text-secondary: #5A5A5A;
+}
+
+html, body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--background);
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  padding: 20px 50px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+  text-decoration: none;
+}
+header h1 a {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+header .nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  align-content: center;
+  margin: 0;
+  list-style: none;
+}
+
+header > .nav > .nav-item {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  font-size: 18px;
+}
+
+.nav-item > a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+.nav-item.nav-item-active > a {
+  position: relative;
+  color: var(--primary);
+  font-weight: 600;
+}
+.nav-item.nav-item-active > a::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: var(--primary);
+}
