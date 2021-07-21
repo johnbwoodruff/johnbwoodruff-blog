@@ -1,10 +1,10 @@
 ---
 layout: layouts/home.njk
-title: About Me
+title: Projects
 templateClass: tmpl-post
 eleventyNavigation:
-  key: About Me
-  order: 3
+  key: Projects
+  order: 2
 ---
 
-I am a person that writes stuff.
+MAH PROJECTS

@@ -5,22 +5,80 @@
 
   --background: #FAFAFA;
 
+  --primary-lightest: #DBEAFE;
+  --primary-light: #93C5FD;
   --primary: #1E69A8;
+  --primary-dark: #2563EB;
+  --primary-alpha: #FFFFFF;
 
   --text-default: rgba(0,0,0,0.8);
   --text-secondary: #5A5A5A;
+  --text-tertiary: rgba(0,0,0,0.4);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html, body {
   margin: 0;
   font-family: var(--font-family);
   background-color: var(--background);
+  height: 100%;
+  letter-spacing: 0.05em;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-dark);
+}
+a:visited {
+  text-decoration: none;
+  color: var(--primary-dark);
+}
+
+hr {
+  width: 150px;
+  height: 1px;
+  background-color: var(--text-tertiary);
+  border: none;
+  margin: 30px auto;
+}
+
+main pre[class*="language-"] {
+  padding: 1.5em;
+}
+
+main :not(pre) code {
+  font-size: 16px;
+  color: var(--primary-dark);
+  background-color: var(--primary-lightest);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+main ul:not(.postlist) > li, main ol:not(.postlist) > li {
+  color: var(--text-default);
+  font-size: 18px;
+  line-height: 25px;
+  margin-bottom: 5px;
+}
+
+main blockquote {
+  border-left: 4px solid var(--primary-light);
+  padding: 5px 0 5px 20px;
+}
+
+main blockquote > p {
+  margin: 0;
 }
 
 header {
   display: grid;
   grid-template-columns: 1fr 300px;
-  padding: 20px 50px;
+  padding: 15px 50px;
+  border-top: 5px solid var(--primary);
+  box-sizing: border-box;
 }
 
 header h1 {
@@ -40,6 +98,7 @@ header .nav {
   align-content: center;
   margin: 0;
   list-style: none;
+  padding: 0;
 }
 
 header > .nav > .nav-item {
@@ -67,4 +126,159 @@ header > .nav > .nav-item {
   height: 3px;
   width: 100%;
   background-color: var(--primary);
+}
+
+main.tmpl-home {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 50px 40px 40px 40px;
+}
+
+main.tmpl-home .postlist {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 50px;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+  max-width: 930px;
+  margin: 0 auto;
+}
+
+.featured-post {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  grid-column: 1 / -1;
+}
+
+.postlist-item {
+  display: grid;
+}
+
+.postlist-item:not(.featured-post) {
+  grid-template-rows: min-content 1fr;
+}
+
+.tmpl-home .postlist-image-link {
+  display: grid;
+}
+
+.tmpl-home .post-cover-image {
+  max-height: 305px;
+  max-width: 450px;
+  width: 100%;
+  background-size: cover;
+}
+
+.post-details {
+  display: grid;
+  grid-auto-rows: min-content;
+}
+
+.post-details > .post-date {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.post-details > .post-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-default);
+  text-decoration: none;
+  margin: 20px 0;
+}
+
+.post-details > .post-description {
+  font-size: 18px;
+  color: var(--text-default);
+  margin: 0;
+}
+
+.postlist-item:not(.featured-post) .post-details {
+  margin-top: 10px;
+}
+
+.postlist-item:not(.featured-post) .post-title {
+  font-size: 24px;
+  margin: 5px 0 10px 0;
+}
+
+.postlist-item:not(.featured-post) .post-description {
+  font-size: 14px;
+}
+
+footer {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  background-color: var(--primary);
+  padding: 30px 20px;
+  margin-top: 40px;
+}
+footer > small {
+  font-size: 18px;
+  color: var(--primary-alpha);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+@media(max-width:1024px){
+  main.tmpl-home .postlist {
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+  }
+}
+
+@media(max-width:768px){
+  header {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: none;
+    justify-content: center;
+    align-content: center;
+  }
+
+  header h1 {
+    text-align: center;
+  }
+
+  header .nav {
+    grid-template-columns: repeat(3, min-content);
+    width: 300px;
+    white-space: nowrap;
+  }
+
+  header .nav > .nav-item {
+    margin: 0 25px;
+  }
+
+  .featured-post {
+    display: grid;
+    grid-template-rows: repeat(2, min-content);
+    grid-template-columns: none;
+    gap: 0;
+    grid-column: 1 / -1;
+  }
+
+  main.tmpl-home .postlist {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .postlist-item {
+    max-width: 450px;
+    justify-self: center;
+  }
+
+  .postlist-item .post-details {
+    margin-top: 10px;
+  }
+
+  .postlist-item .post-title {
+    font-size: 24px;
+    margin: 5px 0 10px 0;
+  }
+
+  .postlist-item .post-description {
+    font-size: 14px;
+  }
 }
