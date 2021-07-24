@@ -28,6 +28,11 @@ html, body {
   letter-spacing: 0.05em;
 }
 
+body {
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+}
+
 a {
   text-decoration: none;
   color: var(--primary-dark);
@@ -73,7 +78,7 @@ main blockquote > p {
   margin: 0;
 }
 
-header {
+.main-header {
   display: grid;
   grid-template-columns: 1fr 300px;
   padding: 15px 50px;
@@ -81,19 +86,25 @@ header {
   box-sizing: border-box;
 }
 
-header h1 {
+.main-header h1 {
   margin: 0;
   font-size: 36px;
   text-decoration: none;
+  color: var(--text-default);
 }
-header h1 a {
+.main-header h1 a {
   text-decoration: none;
-  color: var(--primary);
+  color: var(--text-default);
+}
+.main-header h1 a:visited {
+  text-decoration: none;
+  color: var(--text-default);
 }
 
-header .nav {
+.main-header .nav {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, min-content);
+  white-space: nowrap;
   justify-content: center;
   align-content: center;
   margin: 0;
@@ -101,11 +112,12 @@ header .nav {
   padding: 0;
 }
 
-header > .nav > .nav-item {
+.main-header > .nav > .nav-item {
   display: grid;
   justify-content: center;
   align-content: center;
   font-size: 18px;
+  margin: 0 25px;
 }
 
 .nav-item > a {
@@ -209,7 +221,7 @@ main.tmpl-home .postlist {
   font-size: 14px;
 }
 
-footer {
+.main-footer {
   display: grid;
   justify-content: center;
   align-content: center;
@@ -217,7 +229,7 @@ footer {
   padding: 30px 20px;
   margin-top: 40px;
 }
-footer > small {
+.main-footer > small {
   font-size: 18px;
   color: var(--primary-alpha);
   margin: 0;
