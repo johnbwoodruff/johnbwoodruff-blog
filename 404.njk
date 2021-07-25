@@ -3,9 +3,16 @@ layout: layouts/home.njk
 permalink: 404.html
 eleventyExcludeFromCollections: true
 ---
-# Content not found.
 
-Go <a href="{{ '/' | url }}">home</a>.
+<div class="not-found">
+  <h1>You found something</h1>
+  <img src="/img/404.svg" alt="404 Not Found Illustration">
+  <h4>But it probably isn't what you were trying to find</h4>
+</div>
+
+{# # Content not found.
+
+Go <a href="{{ '/' | url }}">home</a>. #}
 
 {#
 Read more: https://www.11ty.dev/docs/quicktips/not-found/

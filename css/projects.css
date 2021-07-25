@@ -67,5 +67,6 @@
   .project-card {
     align-self: center;
     justify-self: center;
+    min-width: 0;
   }
 }

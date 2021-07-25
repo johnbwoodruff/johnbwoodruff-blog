@@ -243,24 +243,25 @@ main.tmpl-home .postlist {
 }
 
 @media(max-width:768px){
-  header {
+  .main-header {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: none;
     justify-content: center;
     align-content: center;
+    padding: 15px 0;
   }
 
-  header h1 {
+  .main-header h1 {
     text-align: center;
   }
 
-  header .nav {
+  .main-header .nav {
     grid-template-columns: repeat(3, min-content);
     width: 300px;
     white-space: nowrap;
   }
 
-  header .nav > .nav-item {
+  .main-header .nav > .nav-item {
     margin: 0 25px;
   }
 
@@ -270,6 +271,10 @@ main.tmpl-home .postlist {
     grid-template-columns: none;
     gap: 0;
     grid-column: 1 / -1;
+  }
+
+  main.tmpl-home {
+    padding: 10px 20px 30px 20px;
   }
 
   main.tmpl-home .postlist {
@@ -292,5 +297,9 @@ main.tmpl-home .postlist {
 
   .postlist-item .post-description {
     font-size: 14px;
+  }
+
+  .main-footer {
+    padding: 30px 0;
   }
 }
