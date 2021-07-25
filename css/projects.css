@@ -11,8 +11,8 @@
   min-width: 350px;
   max-width: 500px;
   border-radius: 5px;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 4px var(--box-shadow);
+  border: 1px solid var(--border-light);
 }
 
 .project-card > .project-header {
@@ -36,8 +36,8 @@
 
 .project-card > .project-footer {
   display: grid;
-  background-color: #F7F7F7;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--background-shade);
+  border-top: 1px solid var(--border-light);
 }
 
 .project-card > .project-footer > a {

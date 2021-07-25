@@ -4,6 +4,7 @@ main.tmpl-post {
   list-style: none;
   max-width: 930px;
   margin: 0 auto;
+  overflow-x: auto;
 }
 
 main.tmpl-post .post-cover-image {
@@ -19,6 +20,7 @@ main.tmpl-post time {
 }
 
 .post-tag {
+  display: inline-block;
   font-size: 16px;
   color: var(--primary-dark);
   background-color: var(--primary-lightest);
@@ -26,6 +28,7 @@ main.tmpl-post time {
   border-radius: 3px;
   text-decoration: none;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 main.tmpl-post img {

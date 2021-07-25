@@ -7,11 +7,6 @@
       <time class="post-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
       <a href="{{ post.url | url }}" class="post-title postlist-link">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a>
       <p class="post-description">{{post.data.description}}</p>
-
-      {# {% for tag in post.data.tags | filterTagList %}
-        {% set tagUrl %}/tags/{{ tag | slug }}/{% endset %}
-        <a href="{{ tagUrl | url }}" class="post-tag">{{ tag }}</a>
-      {% endfor %} #}
     </section>
   </li>
 {% endfor %}

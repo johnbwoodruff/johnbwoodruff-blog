@@ -2,9 +2,9 @@
   "title": "John Woodruff",
   "url": "https://johnbwoodruff.com/",
   "language": "en",
-  "description": "My Musings",
+  "description": "This is the home for my portfolio as well as my musings on tech and the world.",
   "feed": {
-    "subtitle": "My Musings",
+    "subtitle": "This is the home for my portfolio as well as my musings on tech and the world.",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
     "id": "https://johnbwoodruff.com/"
@@ -16,6 +16,6 @@
   "author": {
     "name": "John Woodruff",
     "email": "johnwoodruff91@gmail.com",
-    "url": "https://johnbwoodruff.com/about-me/"
+    "url": "https://johnbwoodruff.com/about/"
   }
 }

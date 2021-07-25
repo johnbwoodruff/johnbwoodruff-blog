@@ -4,6 +4,7 @@
   --font-family: 'Source Sans Pro', sans-serif;
 
   --background: #FAFAFA;
+  --background-shade: #F7F7F7;
 
   --primary-lightest: #DBEAFE;
   --primary-light: #93C5FD;
@@ -14,6 +15,9 @@
   --text-default: rgba(0,0,0,0.8);
   --text-secondary: #5A5A5A;
   --text-tertiary: rgba(0,0,0,0.4);
+
+  --box-shadow: rgba(0,0,0,0.25);
+  --border-light: rgba(0,0,0,0.1);
 }
 
 * {
@@ -30,7 +34,8 @@ html, body {
 
 body {
   display: grid;
-  grid-template-rows: min-content 1fr min-content;
+  /* grid-template-rows: repeat(3, min-content); */
+  grid-template-rows: min-content minmax(min-content, 1fr) min-content;
 }
 
 a {
