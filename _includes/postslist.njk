@@ -1,13 +1,20 @@
 <ol reversed class="postlist" style="counter-reset: start-from {{ (postslistCounter or postslist.length) + 1 }}">
-{% for post in postslist | reverse %}
-  <li class="postlist-item{% if post.url == url %} postlist-item-active{% endif %}{% if loop.first %} featured-post{% endif %}">
-    {%- if post.data.cover_image %}<a href="{{ post.url | url }}" class="postlist-image-link"><img src="{{post.data.cover_image}}" alt="{{post.data.cover_image_alt}}" class="post-cover-image"/></a>{% endif %}
-    {# {%- if post.data.cover_image %}<img src="{{post.data.cover_image}}" alt="{{post.data.cover_image_alt}}" class="post-cover-image"/>{% endif %} #}
-    <section class="post-details">
-      <time class="post-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
-      <a href="{{ post.url | url }}" class="post-title postlist-link">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a>
-      <p class="post-description">{{post.data.description}}</p>
-    </section>
-  </li>
-{% endfor %}
+  {% for post in postslist | reverse %}
+    <li class="postlist-item{% if post.url == url %} postlist-item-active{% endif %}{% if loop.first %} featured-post{% endif %}">
+      {%- if post.data.cover_image %}
+        <a href="{{ post.url | url }}" class="postlist-image-link"><img src="{{post.data.cover_image}}" alt="{{post.data.cover_image_alt}}" class="post-cover-image"/></a>
+      {% endif %}
+      {# {%- if post.data.cover_image %}<img src="{{post.data.cover_image}}" alt="{{post.data.cover_image_alt}}" class="post-cover-image"/>{% endif %} #}
+      <section class="post-details">
+        <time class="post-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+        <a href="{{ post.url | url }}" class="post-title postlist-link">
+          {% if post.data.title %}{{ post.data.title }}
+          {% else %}
+            <code>{{ post.url }}</code>
+          {% endif %}
+        </a>
+        <p class="post-description">{{post.data.description}}</p>
+      </section>
+    </li>
+  {% endfor %}
 </ol>

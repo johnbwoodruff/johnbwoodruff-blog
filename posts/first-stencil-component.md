@@ -13,7 +13,7 @@ cover_image: /img/stenciljs.png
 cover_image_alt: Stencil.js logo
 ---
 
-*This is the third in a series of posts about creating a web component library using Stencil.js - Check out the [first post](https://dev.to/johnwoodruff91/component-libraries-with-stenciljs---about-stencil-10b7)*
+_This is the third in a series of posts about creating a web component library using Stencil.js - Check out the [first post](/posts/about-stencil)_
 
 We've done a lot of setup so far, now let's create our first component. This is the foundation of any component library: the button component. Let's rename the `my-component` folder to `button`, and all the files inside replacing `my-component` to `button`. We're now ready to build our button.
 
@@ -139,7 +139,7 @@ button {
 }
 ```
 
-First I'm importing my variables for use. I'm then using the `:host` selector, which allows us to select the shadow host of the Shadow DOM, for a couple different things. First of all I'm setting `box-sizing: border-box` to the host element. I personally prefer using the border-box sizing to not take into account borders for the height and width. It makes more sense to me personally. Next I'm using the host selector to *only* select the host when it has a `disabled` attribute applied to it. In that case I'm applying `pointer-events: none` to the element. This makes it so setting a click handler on the element will not fire when the button is disabled.
+First I'm importing my variables for use. I'm then using the `:host` selector, which allows us to select the shadow host of the Shadow DOM, for a couple different things. First of all I'm setting `box-sizing: border-box` to the host element. I personally prefer using the border-box sizing to not take into account borders for the height and width. It makes more sense to me personally. Next I'm using the host selector to _only_ select the host when it has a `disabled` attribute applied to it. In that case I'm applying `pointer-events: none` to the element. This makes it so setting a click handler on the element will not fire when the button is disabled.
 
 Next I'm styling my button itself. You'll notice and possibly worry about me globally styling the `button` element. This is not a problem because we're using the Shadow DOM, and this is one of its best benefits. All of your styling is scoped to the component's Shadow DOM, no styles from outside can penetrate it, and no styles from inside can mess up anything outside of it. It's pretty awesome.
 
@@ -148,8 +148,7 @@ The rest of the styles are pretty straightforward. I have the button styles, the
 If you haven't already, make sure you run `npm start` to start up your dev server and it'll automatically open in your browser. Go ahead and add your button to your `index.html` page so you can test your component. I added the following markup:
 
 ```html
-<mtn-button>Button</mtn-button>
-<mtn-button disabled>Button</mtn-button>
+<mtn-button>Button</mtn-button> <mtn-button disabled>Button</mtn-button>
 ```
 
 When your page refreshes automatically you should see your beautiful new button component in both its disabled and non-disabled states!
@@ -158,6 +157,6 @@ When your page refreshes automatically you should see your beautiful new button 
 
 ## Next Steps
 
-There you have it! A classy button component that looks great and has basic functionality. There's obviously a lot more to a button (and most components) that will implement, but we'll do that in our [next post](https://dev.to/johnwoodruff91/component-libraries-with-stenciljs---going-deeper-5apm). See you there!
+There you have it! A classy button component that looks great and has basic functionality. There's obviously a lot more to a button (and most components) that will implement, but we'll do that in our [next post](/posts/stencil-going-deeper). See you there!
 
-*Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)*
+_Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)_

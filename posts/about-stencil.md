@@ -13,7 +13,7 @@ cover_image: /img/stenciljs.png
 cover_image_alt: Stencil.js logo
 ---
 
-*This is the first in a series of posts about creating a web component library using Stencil.js*
+_This is the first in a series of posts about creating a web component library using Stencil.js_
 
 I've been doing frontend development professionally since 2012. During that time, I've learned JavaScript framework after JavaScript framework. I started with [Backbone.js](http://backbonejs.org/) and disliked it quite a bit. I'm sure it was a great framework at the time, but I use it as a curse word to this day. I was thrilled to learn [Angular.js](https://angularjs.org/) back at the end of 2012, and shocked everyone by re-writing our complex backbone application with Angular.js in a matter of two days, with approximately 1/8th the amount of code.
 
@@ -46,11 +46,7 @@ export class HelloWorld {
   @Prop() name: string;
 
   render() {
-    return (
-      <p>
-        Hello {this.name}!
-      </p>
-    );
+    return <p>Hello {this.name}!</p>;
   }
 }
 ```
@@ -60,8 +56,7 @@ You would simply use this component in a standard HTML page like so:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  </head>
+  <head> </head>
   <body>
     <hello-world name="John Woodruff"></hello-world>
   </body>
@@ -91,6 +86,6 @@ In other reasoning, Stencil-compiled web components are highly performant, small
 
 ## Next Steps
 
-If you've made it this far and are still interested in building a component library along with me in these posts, thank you for being here! This first post had very little in the way of actual code, as I didn't want to jump into that before you had the reasoning and benefits clear in your mind. Now that we've gotten that, I'll see you in the [next post](https://dev.to/johnwoodruff91/component-libraries-with-stenciljs---getting-started-4jej)!
+If you've made it this far and are still interested in building a component library along with me in these posts, thank you for being here! This first post had very little in the way of actual code, as I didn't want to jump into that before you had the reasoning and benefits clear in your mind. Now that we've gotten that, I'll see you in the [next post](/posts/stencil-getting-started)!
 
-*Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)*
+_Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)_

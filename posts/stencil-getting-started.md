@@ -13,7 +13,7 @@ cover_image: /img/stenciljs.png
 cover_image_alt: Stencil.js logo
 ---
 
-*This is the second in a series of posts about creating a web component library using Stencil.js - Check out the [first post](https://dev.to/johnwoodruff91/component-libraries-with-stenciljs---about-stencil-10b7)*
+_This is the second in a series of posts about creating a web component library using Stencil.js - Check out the [first post](/posts/about-stencil)_
 
 Now that we've talked about the reasoning for choosing Stencil to build our web component library, let's jump right in. First things first, we need to get our base project structure set up. Thankfully, the Ionic team has handled this completely for us. Make sure you're running `npm` at version 6 or later, and run the following command:
 
@@ -85,17 +85,14 @@ export const config: Config = {
       serviceWorker: null // disable service workers
     }
   ],
-  plugins: [
-    sass()
-  ]
+  plugins: [sass()]
 };
-
 ```
 
 That's all you need to do to get your project set up for SASS. If you want to use one of the other preprocessors, simply install the appropriate plugin and follow the same steps above. The last thing I need to do is change `my-component.css` to `my-component.scss`, I'll change the `styleUrl` in `my-component.tsx`, and any new components I create from now on will have an `scss` file instead of a `css` file.
 
 ## Next Steps
 
-Now that we've fully configured our project, we're free to build our components without worrying about configuration or build. In the [next post](https://dev.to/johnwoodruff91/component-libraries-with-stenciljs---your-first-component-3b7p) we'll start to go into a detailed build of our first component!
+Now that we've fully configured our project, we're free to build our components without worrying about configuration or build. In the [next post](/posts/first-stencil-component) we'll start to go into a detailed build of our first component!
 
-*Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)*
+_Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)_

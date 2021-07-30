@@ -12,7 +12,7 @@ layout: layouts/post.njk
 cover_image: /img/wsl2.png
 ---
 
-By far my most read blog post was my first, [Epic Development Environment using Windows Subsystem for Linux](https://dev.to/johnbwoodruff/epic-development-environment-using-windows-subsystem-forlinux-5f0n), and to this day it gets many views here on DEV, as well as on Medium where I originally published it, as people search for WSL to find out if it'll work for them. Well, since I published it at the end of 2017, a lot has changed, and I'm not referring to the pandemic in which we all find ourselves. I'm talking about WSL 2.
+By far my most read blog post was my first, [Epic Development Environment using Windows Subsystem for Linux](/posts/epic-dev-environment-wsl), and to this day it gets many views here on DEV, as well as on Medium where I originally published it, as people search for WSL to find out if it'll work for them. Well, since I published it at the end of 2017, a lot has changed, and I'm not referring to the pandemic in which we all find ourselves. I'm talking about WSL 2.
 
 This year Microsoft released Windows Subsystem for Linux 2 alongside the Windows 10 version 2004 update. There are a number of differences between version 1 and 2. You can read more about the [exact differences](https://docs.microsoft.com/en-us/windows/wsl/compare-versions) but the key takeaways are that WSL 2 offers 100% system call compatibility, much faster performance, and less memory usage. Note that you only get the fast performance if you store the files you work with in the Linux filesystem. If for some reason you need to store your files in the Windows filesystem, you'll get better performance using WSL 1.
 
@@ -61,6 +61,7 @@ It’s fairly straightforward to install zsh. After making sure you’ve run `su
 I also love [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh), which provides lots of beautiful themes and excellent plugins. I used the `curl` command under the [Basic Installation](https://github.com/robbyrussell/oh-my-zsh#basic-installation) instructions, and I was good to go! You can then select the theme you want by editing your `~/.zshrc` file and adding the theme name to the `ZSH_THEME` environment variable. Previously I was using the Pure theme for ZSH, but I've since moved over to the venerable [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme. It's super customizable, easy to setup, and has excellent speed.
 
 ![Powerlevel10k Theme](https://dev-to-uploads.s3.amazonaws.com/i/pq2uvxlg5maarilm36dh.png)
+
 <center><small>Featured image from the <a href="https://github.com/romkatv/powerlevel10k" target="_blank">Powerlevel10k</a> repository</small></center>
 
 ## Windows Terminal
@@ -71,20 +72,21 @@ When you launch Windows Terminal _after_ having installed and run Ubuntu for the
 
 ```json
 {
-    "guid": "{GUID_HERE}",
-    "hidden": false,
-    "name": "Ubuntu",
-    "source": "Windows.Terminal.Wsl",
-    "startingDirectory":"//wsl$/Ubuntu/home/{UBUNTU_USERNAME}",
-    "fontFace": "Fira Code",
-    "useAcrylic": true,
-    "acrylicOpacity": 0.8
+  "guid": "{GUID_HERE}",
+  "hidden": false,
+  "name": "Ubuntu",
+  "source": "Windows.Terminal.Wsl",
+  "startingDirectory": "//wsl$/Ubuntu/home/{UBUNTU_USERNAME}",
+  "fontFace": "Fira Code",
+  "useAcrylic": true,
+  "acrylicOpacity": 0.8
 }
 ```
 
 I set a few things here. First of all, I set my `startingDirectory` to be my Ubuntu home directory. Simply replace `{UBUNTU_USERNAME}` with your actual ubuntu username. I also **love** the [Fira Code](https://github.com/tonsky/FiraCode) font, so I've got that installed on my machine and I have my terminal using it. Lastly, I'm a huge fan of the Windows acrylic look, so I have my terminal using that effect. You're welcome to set that to `false` if you don't like it.
 
 ![Windows Terminal](https://dev-to-uploads.s3.amazonaws.com/i/z9irmrr5on3wwd4xqyks.jpeg)
+
 <center><small>Screenshot from the Windows Terminal store page</small></center>
 
 ## Visual Studio Code
@@ -96,6 +98,7 @@ What has not changed is that [Visual Studio Code](https://code.visualstudio.com/
 There's one more extension you must get if you're doing WSL 2 development. This is different from my last article as this extension did not exist at the time. That's the [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) extension. This little extension makes many of the little gotchas I previously experienced go away. I used to have to install a tool called wsl-git that would proxy Windows git requests to WSL. This was so I could get the git features in VS Code to work. With this WSL extension you no longer need any of that. When you run `code .` from a folder inside of your WSL terminal, it will open that folder in VS Code and automatically use all the features and binaries from your WSL 2 installation instead of from Windows. You can install VS Code extensions that use the Linux binaries. It's a totally seamless experience that makes you forget you're not using Linux.
 
 ![Visual Studio Code](https://dev-to-uploads.s3.amazonaws.com/i/uhk8pa1bq0vqfvws2m52.png)
+
 <center><small>My Visual Studio Code setup with the Remote - WSL extension</small></center>
 
 ## Node.js/NPM
@@ -107,6 +110,7 @@ Personally I decided to take the approach of doing as much as absolutely possibl
 If you did everything right, you should have nvm installed correctly. I then installed the Long Term Support version of node by running `nvm install --lts` and then `nvm use --lts` to set it as the version I’m currently using. I also set it to my default node version by running `nvm alias default {VERSION}` where VERSION is the version number you just installed.
 
 ![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/m8xljjvspefuwsxadmco.png)
+
 <center><small>A global npm install of the Angular CLI & Typescript npm packages</small></center>
 
 ### Yarn
@@ -114,6 +118,7 @@ If you did everything right, you should have nvm installed correctly. I then ins
 As an aside to installing Node, I thought I’d bring up that I also installed [Yarn](https://yarnpkg.com/), because I love Yarn. You can install it through Windows, but again, I’m trying to do everything I need through WSL, so I followed the [Linux Installation Instructions](https://yarnpkg.com/en/docs/install#linux-tab). Specifically the Ubuntu/Debian instructions, of course. This went without a hitch, and I had yarn working!
 
 ![Yarn install](https://dev-to-uploads.s3.amazonaws.com/i/z7c93enbma2lc1lvzxyf.png)
+
 <center><small>A yarn install working beautifully</small></center>
 
 ## Docker
@@ -125,6 +130,7 @@ To get Docker up and running, simply download [Docker Desktop](https://www.docke
 At this point you should be able to use Docker and Docker Compose beautifully inside of both your Windows PowerShell environment as well as inside of your default WSL distro! (you can enable it inside of other WSL distros besides your default one in the WSL Integration settings in Docker Desktop)
 
 ![Docker running mysql](https://dev-to-uploads.s3.amazonaws.com/i/2orcwtipqsz1ogpti7fw.png)
+
 <center><small>Docker for Windows pulling and running the mysql container</small></center>
 
 ## Last Words

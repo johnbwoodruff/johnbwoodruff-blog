@@ -88,7 +88,7 @@ main.tmpl-post p {
   color: var(--text-default);
 }
 
-@media(max-width:1024px){
+@media (max-width: 1024px) {
   main.tmpl-post {
     width: 100%;
     padding: 10px 20px 30px 20px;

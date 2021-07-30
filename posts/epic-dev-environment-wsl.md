@@ -10,14 +10,12 @@ tags:
   - windows
 layout: layouts/post.njk
 cover_image: /img/wsl.png
-canonical_url: https://medium.com/@johnwoodruff91/epic-dev-environment-with-wsl-dc81e234ae61
 ---
-
-*Cross-posted from [Epic Development Environment using Windows Subsystem for Linux](https://medium.com/@johnwoodruff91/epic-dev-environment-with-wsl-dc81e234ae61) on Medium*
 
 Like many other developers, I have a handful of side projects I am working on at all times. My work is also my hobby. Whenever a new side project appears, I immediately pursue it because of the excitement of working on something new and shiny! I often feel like the developer in this comic by the excellent [CommitStrip](http://www.commitstrip.com) was written about me.
 
 ![West Side-project Story](https://thepracticaldev.s3.amazonaws.com/i/gfjg3oume3za4v0aaqh4.jpeg)
+
 <center><small><a href="http://www.commitstrip.com/en/2014/11/25/west-side-project-story/" target="_blank">West Side-project Story</a> - <a href="http://www.commitstrip.com" target="_blank">CommitStrip</a> - Nov 25, 2014</small></center>
 
 To support all these side projects, I obviously need an awesome machine to do this work on. I wanted to separate my work laptop and code from my personal projects. So, I decided recently that I’d purchase myself a new laptop on Black Friday. For what I wanted, however, I couldn’t convince myself to shell out that much money for a Mac. I could, however, buy a Windows laptop with all the specs I wanted (and more) for a much cheaper price. With that in mind, I researched for days, and found what I believed to be the perfect laptop! Come Black Friday, I snapped it up.
@@ -27,9 +25,10 @@ I finally had my perfect laptop and was ready to go. The last obstacle? Setting 
 Yep. You can run multiple Linux distros, on your Windows PC, without virtualbox, dual booting, etc. This is native. And this is awesome.
 
 ![WSL Distros](https://thepracticaldev.s3.amazonaws.com/i/86n9ewmr69p2ej2fw67i.png)
+
 <center><small>Image from <a href="https://blogs.msdn.microsoft.com/commandline/2017/05/11/new-distros-coming-to-bashwsl-via-windows-store/" target="_blank">New distros coming to Bash/WSL via Windows Store</a></small></center>
 
-I’m still in the early days of using it for my personal development, but it’s been a wonderful experience thus far! Vastly easier and better (IMHO) than trying to wrangle cygwin, git for windows with the bash emulation, and the many other solutions that attempt to bridge the gap to a *NIX experience. So, let’s dig in to how you can get this epic dev environment on your Windows machine.
+I’m still in the early days of using it for my personal development, but it’s been a wonderful experience thus far! Vastly easier and better (IMHO) than trying to wrangle cygwin, git for windows with the bash emulation, and the many other solutions that attempt to bridge the gap to a \*NIX experience. So, let’s dig in to how you can get this epic dev environment on your Windows machine.
 
 ## Prerequisites
 
@@ -58,6 +57,7 @@ It’s fairly straightforward to install zsh. After making sure you’ve run `su
 I also love [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh), which provides lots of beautiful themes and excellent plugins. I used the `curl` command under the [Basic Installation](https://github.com/robbyrussell/oh-my-zsh#basic-installation) instructions, and I was good to go! You can then select the theme you want by editing your `~/.zshrc` file and adding the theme name to the `ZSH_THEME` environment variable. Personally, I’m using [Pure](https://github.com/sindresorhus/pure), a beautiful minimalist theme.
 
 ![Pure Theme](https://thepracticaldev.s3.amazonaws.com/i/42d0py0lj8nicmq8h2v2.png)
+
 <center><small>Featured image from the <a href="https://github.com/sindresorhus/pure" target="_blank">Pure</a> repository</small></center>
 
 **NOTE:** Personally, when trying to use Pure and zsh with the Ubuntu terminal app, it had some styling and unicode issues. This is not a problem for me, however, as I use Hyper, which I go over below!
@@ -87,6 +87,7 @@ If you did everything right, you should have nvm installed correctly. I then ins
 **NOTE:** I initially had some struggles where when I opened my Ubuntu terminal, it would give the error: `N/A: version "N/A" is not yet installed` After a bit of searching, I found that when I ran `nvm ls` it would list the installed versions of node. Under the lts versions, several had “N/A” because they were not installed. I installed those versions, and it stopped giving me the error.
 
 ![Npm](https://thepracticaldev.s3.amazonaws.com/i/6pn7ypli7l8z1lui6jkv.png)
+
 <center><small>A global npm install of the <a href="https://cli.angular.io/" target="_blank">Angular CLI</a> repository</small></center>
 
 ### Yarn
@@ -94,6 +95,7 @@ If you did everything right, you should have nvm installed correctly. I then ins
 As an aside to installing Node, I thought I’d bring up that I also installed [Yarn](https://yarnpkg.com/), because I love Yarn. You can install it through Windows, but again, I’m trying to do everything I need through WSL, so I followed the [Linux Installation Instructions](https://yarnpkg.com/en/docs/install#linux-tab). Specifically the Ubuntu/Debian instructions, of course. This went without a hitch, and I had yarn working!
 
 ![Yarn](https://thepracticaldev.s3.amazonaws.com/i/gb0z3p3p6mzqfadmg9dt.png)
+
 <center><small>A yarn install working beautifully</small></center>
 
 ## Docker
@@ -112,6 +114,7 @@ alias docker-compose='docker-compose.exe'
 Upon restarting my terminal, I could invoke docker and docker-compose commands just like normal!
 
 ![Docker](https://thepracticaldev.s3.amazonaws.com/i/zywi8gdj24c2dvnxgp4a.png)
+
 <center><small>Docker for Windows being run through my zsh shell using the alias</small></center>
 
 ## Last Words

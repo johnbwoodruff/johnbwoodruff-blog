@@ -11,13 +11,13 @@ layout: layouts/post.njk
 cover_image: /img/graveyard.png
 ---
 
-In my previous post, [Epic Development Environment using Windows Subsystem for Linux](https://dev.to/johnwoodruff91/epic-development-environment-using-windows-subsystem-forlinux-5f0n), I opened with my reasoning for buying a new laptop: the many side projects I had going on. Unfortunately, over the years, many of those side projects languished into obscurity and were never looked at again. Recently the venerable [Isaac Lyman](https://twitter.com/isaacandsuch) published the blog post [GitHub Graveyards: I'll show you mine...](https://dev.to/isaacandsuch/github-graveyards-ill-show-you-mine-49lh) and went through all the side projects that fizzled and died for various reasons, why he built them/what he learned from them.
+In my previous post, [Epic Development Environment using Windows Subsystem for Linux](/posts/epic-dev-environment-wsl), I opened with my reasoning for buying a new laptop: the many side projects I had going on. Unfortunately, over the years, many of those side projects languished into obscurity and were never looked at again. Recently the venerable [Isaac Lyman](https://twitter.com/isaacandsuch) published the blog post [GitHub Graveyards: I'll show you mine...](https://dev.to/isaacandsuch/github-graveyards-ill-show-you-mine-49lh) and went through all the side projects that fizzled and died for various reasons, why he built them/what he learned from them.
 
 I loved the idea, and it felt like a great way to memorialize those dead projects that benefitted me in so many ways. With that in mind, I present to you my GitHub Graveyard.
 
 ### [Default Stylesheet](https://github.com/jbw91/default-stylesheet)
 
-*A beautifully simple default CSS stylesheet*
+_A beautifully simple default CSS stylesheet_
 
 This was one of my first ever repositories on GitHub. I wanted to make a design system myself, ala Bootstrap at the time, but have it be simply providing default styles to standard HTML controls and elements as opposed to applying classes to everything. I created an incredibly simple design to the basic elements (buttons, inputs, selects, etc.) and created a stylesheet that one could simply link to on their unstyled site and get immediate benefit.
 
@@ -30,7 +30,7 @@ I used the stylesheet myself on a couple of small things before I stopped using 
 
 ### [Barebones Grid](https://github.com/jbw91/barebones-grid)
 
-*A simple responsive grid-based CSS framework*
+_A simple responsive grid-based CSS framework_
 
 Coming off of the high of building my first open source project, I quickly moved into once again building something Bootstrap and others had already built: A grid system. On this project, in fact, I shamelessly walked through the Bootstrap code itself and followed its example to essentially rebuild the same type of grid as a standalone library.
 
@@ -44,7 +44,7 @@ At the end I had a working responsive grid (practically identical in functionali
 
 ### [Project Tracker](https://github.com/jbw91/project-tracker)
 
-*A hybrid app built on Ionic for the purpose of tracking and managing projects*
+_A hybrid app built on Ionic for the purpose of tracking and managing projects_
 
 Ah, my first [Ionic](https://ionicframework.com/) application. This was back on Ionic v1. It was love at first sight, a love that continues to this day. I was building a project at work to track department priorities and project timelines, and thought it would be fun to make a slimmed down version of the project as a mobile app. I had just attended [ng-conf](https://www.ng-conf.org/) in 2015 and learned a bunch about Ionic, so I was stoked to be able to build native apps with the web technologies I already knew.
 
@@ -57,7 +57,7 @@ This project fizzled out quickly because the design I was attempting was complic
 
 ### [Cash Tracker](https://github.com/jbw91/cash-tracker)
 
-*A simple cash income/expense tracker hybrid Ionic app*
+_A simple cash income/expense tracker hybrid Ionic app_
 
 This was the project I jumped on to after losing steam on Project Tracker. A much more simple design using mostly basic Ionic components. I also used [Chart.js](https://www.chartjs.org/) for the first time, which was quite fun and a good learning experience. I completed most of what I wanted to accomplish in the app before moving on to other projects.
 
@@ -69,7 +69,7 @@ This was the project I jumped on to after losing steam on Project Tracker. A muc
 
 ### [Simple LMS API](https://github.com/jbw91/simple-lms-api)
 
-*A Node.js and Express API for the Simple LMS project*
+_A Node.js and Express API for the Simple LMS project_
 
 I was still in school at BYU during 2015, and they had an in-house Learning Management System (LMS) they built called Learning Suite. It was an atrocious experience. Slow, incredibly buggy, and everyone hated it when it came out. (it got vastly better over time, and I'm sure it's totally fine now) Due to this annoyance, however, I pledged to build a better LMS! As you can see from this project, I worked on the backend of the project for about a month before abandoning it.
 
@@ -87,7 +87,7 @@ On the other hand, I also made tons of rookie mistakes. For example, I used simp
 
 This was an incredibly fun project. I loved using web technologies for creating mobile apps, and got super excited at the prospect of doing that for desktop apps too. Enter [Electron](https://electronjs.org/). This has become one of my favorite technologies, something that I use to this day. I wanted to build a desktop application, so I decided to build a [Firebase](https://firebase.google.com/) chat app. (something that most web devs have done at some point in their career)
 
-I used Angular.js's [Material Design library](https://material.angularjs.org/latest/) and had a ton of fun building a chat app hosted in Electron. I ended up using very little of Electron itself ironically in this project, I simply loaded up my app in an Electron window, but I thought I was a full-on Electron developer! Since then, I've gotten *substantially* more knowledgeable about Electron and have been working with Electron professionally for the last year and a half.
+I used Angular.js's [Material Design library](https://material.angularjs.org/latest/) and had a ton of fun building a chat app hosted in Electron. I ended up using very little of Electron itself ironically in this project, I simply loaded up my app in an Electron window, but I thought I was a full-on Electron developer! Since then, I've gotten _substantially_ more knowledgeable about Electron and have been working with Electron professionally for the last year and a half.
 
 **What I Learned:**
 

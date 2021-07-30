@@ -26,10 +26,10 @@
   align-self: center;
   justify-self: center;
   margin-top: 20px;
-  opacity: .8;
+  opacity: 0.8;
 }
 
-@media(max-width:768px) {
+@media (max-width: 768px) {
   .not-found > h1 {
     font-size: 24px;
   }

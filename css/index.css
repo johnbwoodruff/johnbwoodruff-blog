@@ -3,28 +3,29 @@
 :root {
   --font-family: 'Source Sans Pro', sans-serif;
 
-  --background: #FAFAFA;
-  --background-shade: #F7F7F7;
+  --background: #fafafa;
+  --background-shade: #f7f7f7;
 
-  --primary-lightest: #DBEAFE;
-  --primary-light: #93C5FD;
-  --primary: #1E69A8;
-  --primary-dark: #2563EB;
-  --primary-alpha: #FFFFFF;
+  --primary-lightest: #dbeafe;
+  --primary-light: #93c5fd;
+  --primary: #1e69a8;
+  --primary-dark: #2563eb;
+  --primary-alpha: #ffffff;
 
-  --text-default: rgba(0,0,0,0.8);
-  --text-secondary: #5A5A5A;
-  --text-tertiary: rgba(0,0,0,0.4);
+  --text-default: rgba(0, 0, 0, 0.8);
+  --text-secondary: #5a5a5a;
+  --text-tertiary: rgba(0, 0, 0, 0.4);
 
-  --box-shadow: rgba(0,0,0,0.25);
-  --border-light: rgba(0,0,0,0.1);
+  --box-shadow: rgba(0, 0, 0, 0.25);
+  --border-light: rgba(0, 0, 0, 0.1);
 }
 
 * {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   font-family: var(--font-family);
   background-color: var(--background);
@@ -55,7 +56,7 @@ hr {
   margin: 30px auto;
 }
 
-main pre[class*="language-"] {
+main pre[class*='language-'] {
   padding: 1.5em;
 }
 
@@ -67,7 +68,8 @@ main :not(pre) code {
   border-radius: 3px;
 }
 
-main ul:not(.postlist) > li, main ol:not(.postlist) > li {
+main ul:not(.postlist) > li,
+main ol:not(.postlist) > li {
   color: var(--text-default);
   font-size: 18px;
   line-height: 25px;
@@ -241,13 +243,13 @@ main.tmpl-home .postlist {
   letter-spacing: 0.05em;
 }
 
-@media(max-width:1024px){
+@media (max-width: 1024px) {
   main.tmpl-home .postlist {
     grid-template-columns: repeat(2, minmax(280px, 1fr));
   }
 }
 
-@media(max-width:768px){
+@media (max-width: 768px) {
   .main-header {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: none;

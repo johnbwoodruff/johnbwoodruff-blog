@@ -13,7 +13,7 @@ cover_image: /img/stenciljs.png
 cover_image_alt: Stencil.js logo
 ---
 
-*This is the fourth in a series of posts about creating a web component library using Stencil.js - Check out the [first post](https://dev.to/johnwoodruff91/component-libraries-with-stenciljs---about-stencil-10b7)*
+_This is the fourth in a series of posts about creating a web component library using Stencil.js - Check out the [first post](/posts/about-stencil)_
 
 In the last post we created a very simple button component. We're now going to extend that with more options and functionality to be more fully featured. I personally want to have a couple of color options for this button, a couple of button shapes, and a few sizes.
 
@@ -139,6 +139,6 @@ Now that we've implemented these classes, we have some pretty incredible looking
 
 ## Next Steps
 
-We now have an awesome button component we can use anywhere! This is a simple first component, so we're not dealing with many of the other decorators such as `@Watch()`, `@Method()`, or `@State()`. We'll get into those with a new component that is more complex in our next post. See you in the next one!
+We now have an awesome button component we can use anywhere! This is a simple first component, so we're not dealing with many of the other decorators such as `@Watch()`, `@Method()`, or `@State()`. We'll get into those with a new component that is more complex in our [next post](/posts/stencil-decorators). See you in the next one!
 
-*Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)*
+_Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)_
