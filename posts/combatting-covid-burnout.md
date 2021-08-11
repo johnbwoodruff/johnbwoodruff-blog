@@ -24,7 +24,7 @@ I'm of the opinion that it's important to have hobbies outside of work. That bei
 
 For myself personally I've had a variety of hobbies over the years. In addition to some of the typical ones (such as video games) I've enjoyed other hobbies that were less technical and more physical. One of my favorites is woodworking. My wife and I have built a variety of pieces I am proud of. My favorite was a dining table.
 
-![Handmade Dining Room Table](https://dev-to-uploads.s3.amazonaws.com/i/uf2qvys0bh686opd9avd.jpg)
+![Handmade Dining Room Table](/img/posts/combatting-covid-burnout/table.jpeg)
 
 We had many family dinners around that table, and I felt very accomplished and greatly enjoyed working hard on this beautiful piece. It contributed greatly to me feeling fulfilled and definitely helped to hold off periods of burnout. There is something about working with physical objects and tools that breaks up the constant mental stress of working on a screen and with software. Perhaps something like that that would work for you to help fight off burnout.
 
@@ -34,7 +34,7 @@ This is one of the most commonly recommended things to help with burnout. (among
 
 I've lately been in a better habit of exercise. Part of it is that I got a new puppy about 2 months ago! She's adorable, but she requires a lot of exercise to keep her healthy and happy, which means a lot of exercise for me. I take her on multiple walks every day to help her expend some energy, and she usually loves to run during the long stretches of grass, which I run with her.
 
-![Puppy outside in the backyard](https://dev-to-uploads.s3.amazonaws.com/i/k6lqrbh7epldiky1vl8n.JPG)
+![Puppy outside in the backyard](/img/posts/combatting-covid-burnout/puppy.jpeg)
 
 Another easy way to start getting into exercising is through VR if you're able to own something like an [Oculus Quest](https://www.oculus.com/quest-2/). While most games you don't move around much, there are plenty of games that can actually get your heart rate going decently well such as [Beat Saber](https://beatsaber.com/). On the Oculus Quest specifically there is a game called [Supernatural](https://www.oculus.com/experiences/quest/1830168170427369) that is a fitness game. You pay for a membership and you get new workouts daily that tailor themselves to your fitness level. I tried it on a friend's headset before I got the Quest and it was a great workout. So there are plenty of ways to get exercise without needing to go to a gym or have lots of equipment at home.
 
@@ -44,7 +44,7 @@ I really enjoy video games as I'm sure many of you reading this article do as we
 
 Due to COVID most of us can't do close contact with friends and loved ones at the moment. I'm particularly close with my siblings, and pre-COVID we would get together regularly to hang out and enjoy each others' company. Since we can't do that right now, we decided to do a once-a-week video game night where we all play a video game together over voice chat. Our favorite to do is Age of Empires II, since that was one we played together frequently while growing up. It's really fun because we get to chat while playing, and we usually do a Zoom call afterwards to chat and reminisce.
 
-![Age of Empires 2](https://dev-to-uploads.s3.amazonaws.com/i/x21fnwmtdq7gsjqddt5y.jpg)
+![Age of Empires 2](/img/posts/combatting-covid-burnout/aoe.jpeg)
 
 I also enjoy [streaming on Twitch](https://www.twitch.tv/jorgnaan) while I play video games. I'm by no means a streamer like many of you might be. I mostly stream just because it's fun when the occasional person hops on the stream and interacts with me. I only stream twice a week, usually to play Sea of Thieves on Tuesdays, and Rocket League on Fridays, with a variety of friends. Those are really fun to do. We play a couple hours and just have a fun time together, whether anybody watches or not. I definitely don't stream to do anything other than just have a good time.
 

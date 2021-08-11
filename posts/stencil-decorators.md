@@ -13,7 +13,7 @@ cover_image: /img/stenciljs.png
 cover_image_alt: Stencil.js logo
 ---
 
-*This is the fifth in a series of posts about creating a web component library using Stencil.js - Check out the [first post](https://dev.to/johnwoodruff91/component-libraries-with-stenciljs---about-stencil-10b7)*
+_This is the fifth in a series of posts about creating a web component library using Stencil.js - Check out the [first post](https://dev.to/johnwoodruff91/component-libraries-with-stenciljs---about-stencil-10b7)_
 
 At this point we've built a fairly basic component that looks great and functions correctly. We're now going to move on to a new component that has more complex functionality and interaction. Tabs are one of the basic components every library needs. Each tab is effectively a button, but those buttons work together and maintain a shared state with regards to which tab is currently active. This is a perfect candidate for our next component, as it can use all the rest of the [decorators](https://stenciljs.com/docs/decorators#decorators) Stencil provides.
 
@@ -48,15 +48,9 @@ export class Tabs {
 
     return (
       <div class={classMap}>
-        <button role="tab">
-          Tab 1
-        </button>
-        <button role="tab">
-          Tab 2
-        </button>
-        <button role="tab">
-          Tab 3
-        </button>
+        <button role="tab">Tab 1</button>
+        <button role="tab">Tab 2</button>
+        <button role="tab">Tab 3</button>
       </div>
     );
   }
@@ -85,7 +79,7 @@ Let's also get some very basic styling in place to our host component and `.tabs
 }
 ```
 
-![ugly tabs](https://thepracticaldev.s3.amazonaws.com/i/letmyd1b9om047ggsik3.png)
+![ugly tabs](/img/posts/stencil-decorators/ugly.png)
 
 This obviously looks really ugly and not at all like tabs, but it's a start, and we simply need to style them to be a little nicer. Let's add a few simple styles to make them look beautiful.
 
@@ -117,7 +111,7 @@ Let's give each button a `.tab-button` class and an `.active` class to the first
 
 We're doing a couple things here that you can work out, but basically we're removing the styling that buttons have, tweaking the font, and then adding a nice border at the bottom of the tab when it's active. We're also doing a fun little hover border with a light gray color when hovering over a tab that's neither disabled nor currently active. We're of course also defining what a disabled tab looks like.
 
-![](https://thepracticaldev.s3.amazonaws.com/i/ffj2pxio671oda9zd78c.png)
+![beautiful tabs](/img/posts/stencil-decorators/beautiful.png)
 
 Now our tabs look like actual tabs, but they're also hardcoded. We want to be able to specify how many tabs we want, as well as customize their labels. Here's where we get into the other decorators.
 
@@ -332,4 +326,4 @@ In that function we don't care about the old value, we just want to return the n
 
 Congratulations! Your tabs component should be fully working now! We have a public API to change tabs, an event we can listen and react to, and internal state that helps us re-render appropriately when needed. The decorators we've gone over in this and previous posts form the foundation of building web components with Stencil. We've covered a ton of ground in this series, but there's still more to be had! One of the most important aspects of developing software has been missing thus far, and that's **testing your code**. We'll be going over that in the next post, coming soon!
 
-*Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)*
+_Simply want to see the end result repo? Check it out [here](https://github.com/johnbwoodruff/mountain-ui)_

@@ -153,7 +153,7 @@ If you haven't already, make sure you run `npm start` to start up your dev serve
 
 When your page refreshes automatically you should see your beautiful new button component in both its disabled and non-disabled states!
 
-![new buttons](https://thepracticaldev.s3.amazonaws.com/i/mq6160q4l4v5cu7b0ode.png)
+![new buttons](/img/posts/first-stencil-component/buttons.png)
 
 ## Next Steps
 

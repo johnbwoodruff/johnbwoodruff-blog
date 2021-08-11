@@ -135,7 +135,7 @@ For the color changing classes, we need to re-implement our `hover` and `active`
 
 Now that we've implemented these classes, we have some pretty incredible looking button web components!
 
-![buttons](https://thepracticaldev.s3.amazonaws.com/i/m0yrzxl4jfk994sj6a7b.png)
+![buttons](/img/posts/stencil-going-deeper/buttons.png)
 
 ## Next Steps
 

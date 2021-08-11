@@ -12,7 +12,7 @@ layout: layouts/post.njk
 cover_image: /img/angular.png
 ---
 
-I wanted the title to be painfully obvious. Just in case that didn't make it obvious enough, let me be even more clear. **This is my completely biased opinion.** You possibly vehemently disagree with me on this, *and that's okay.* This is not a post to try to claim Angular is better than React or Vue or Svelt or whatever other framework you're in love with. It's literally a post talking about why I, John Woodruff, choose to use Angular in personal projects small and large. Honestly, I'm not even trying to convince you to use Angular. In fact, my honest advice for picking a framework for a project is to pick the one you know the best, so you can be as productive as possible. So let's get all that out of the way up front, and dive into my **heavily biased** reasons for choosing Angular for personal projects. Keep in mind, when I make a statement it's an entirely opinion-based statement, so take it with a grain of salt.
+I wanted the title to be painfully obvious. Just in case that didn't make it obvious enough, let me be even more clear. **This is my completely biased opinion.** You possibly vehemently disagree with me on this, _and that's okay._ This is not a post to try to claim Angular is better than React or Vue or Svelt or whatever other framework you're in love with. It's literally a post talking about why I, John Woodruff, choose to use Angular in personal projects small and large. Honestly, I'm not even trying to convince you to use Angular. In fact, my honest advice for picking a framework for a project is to pick the one you know the best, so you can be as productive as possible. So let's get all that out of the way up front, and dive into my **heavily biased** reasons for choosing Angular for personal projects. Keep in mind, when I make a statement it's an entirely opinion-based statement, so take it with a grain of salt.
 
 ## Opinionated Framework
 
@@ -26,7 +26,7 @@ This is also why I love Angular for large complex apps within work environments.
 
 ## Angular CLI
 
-![Image of the terminal with an Angular CLI process running](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ma3ch7wrceuafrraz4nw.png)
+![Image of the terminal with an Angular CLI process running](/img/posts/reasons-for-choosing-angular/angular-cli.png)
 
 Ah the [Angular CLI](https://angular.io/cli). This goes right along with the previous point of Angular being opinionated. The Angular CLI is the best way to build Angular applications due to it tightly following the Angular style guide. It generates a fully scaffolded Angular project for you, and has numerous generator commands for adding new components, services, modules, etc., has automated testing all set up for you out of the box, and more.
 
@@ -36,11 +36,11 @@ It also completely controls your build process, which means they fully manage th
 
 One of the best features of Angular CLI, if not the best feature, is the `ng update` command. Ever since Angular 6 was released, the Angular CLI has included this command. It takes basically all the work out of doing version upgrades, and the Angular team did an absolutely phenomenal job of making this command work exceptionally well. They even have a super helpful [Update Guide](https://update.angular.io/) which gives detailed instructions, but almost all of them say that the changes should be automated by the `ng update` command. Normally when you have a major version update, you would have to manually go through your app updating dependencies, delving into changelogs, changing code in your app in numerous places to get rid of deprecated or removed features, and then painstakingly testing to make sure you haven't broken anything. This command, however, automates essentially all of that, including running code migrations that automatically migrate you to the latest recommended syntax. There have only been a handful of times where the changes required manual intervention in the code, and usually they were exceptionally quick to resolve. All the rest is fully automated by Angular CLI.
 
-Ever since this command was released, I have spent approximately 5-10 minutes updating to the latest each time a new major version is released. Contrast this with major version upgrades that can sometimes take hours or even days to update your large complex applications to the latest versions.  It even allows library authors to define their own schematics to automatically update their libraries, and that's awesome for users of the framework to not have to worry about manually keeping those up to date when they can just automate it. This has saved me countless hours every single time a major version is released, and I am completely spoiled when using other frameworks that don't provide this incredible functionality. (that's actually another upside to opinionated frameworks, it allows features like this that are otherwise unrealistic with unopinionated frameworks) The Angular team absolutely knocked it out of the park with this feature.
+Ever since this command was released, I have spent approximately 5-10 minutes updating to the latest each time a new major version is released. Contrast this with major version upgrades that can sometimes take hours or even days to update your large complex applications to the latest versions. It even allows library authors to define their own schematics to automatically update their libraries, and that's awesome for users of the framework to not have to worry about manually keeping those up to date when they can just automate it. This has saved me countless hours every single time a major version is released, and I am completely spoiled when using other frameworks that don't provide this incredible functionality. (that's actually another upside to opinionated frameworks, it allows features like this that are otherwise unrealistic with unopinionated frameworks) The Angular team absolutely knocked it out of the park with this feature.
 
 ## Angular CDK
 
-![Screenshot of the Angular CDK docs page](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/57kdgmqg64na4zple6td.png)
+![Screenshot of the Angular CDK docs page](/img/posts/reasons-for-choosing-angular/angular-docs.png)
 
 Alongside [Angular Material](https://material.angular.io) is a super awesome little package called [Angular CDK](https://material.angular.io/cdk/categories). CDK stands for Component Dev Kit, and it is an incredibly handy package for helping you develop some of the more complex components an application requires. They're marketed as "behavior primitives" that you can use to build your own branded components.
 
@@ -53,10 +53,14 @@ This is a hot topic for some reason, but Dependency Injection is another huge re
 ```typescript
 // Some service I've defined
 @Injectable()
-export class MyService { /* ... */ }
+export class MyService {
+  /* ... */
+}
 
 // Some component in my app
-@Component({ /* ... */ })
+@Component({
+  /* ... */
+})
 export class MyComponent {
   constructor(private service: MyService) {}
 }
@@ -86,6 +90,6 @@ It makes working in large complex codebases much more trivial, and makes testing
 
 ## Conclusion
 
-In case you've forgotten by this point, I'll reiterate one more time that this post is incredibly biased and entirely opinion-based. I absolutely love to use Angular, it's my framework of choice for side projects, and I believe it's an excellent choice for many of you as well. *That being said,* I absolutely would argue that it's not a good choice for many others. When it comes down to it, you need to weigh the pros and cons of each framework, decide what tradeoffs you're willing to make, and choose based on what you decide. For many of you that's going to be React, or Vue, or Svelt, or Stencil, or Ember, or heck maybe even Backbone. And that's absolutely okay.
+In case you've forgotten by this point, I'll reiterate one more time that this post is incredibly biased and entirely opinion-based. I absolutely love to use Angular, it's my framework of choice for side projects, and I believe it's an excellent choice for many of you as well. _That being said,_ I absolutely would argue that it's not a good choice for many others. When it comes down to it, you need to weigh the pros and cons of each framework, decide what tradeoffs you're willing to make, and choose based on what you decide. For many of you that's going to be React, or Vue, or Svelt, or Stencil, or Ember, or heck maybe even Backbone. And that's absolutely okay.
 
 I wanted to write this article to provide perspective to why I personally choose Angular over another framework. Not to provide more fodder for the "framework wars" or to bash on another person's choice. I will always say that the best framework choice for a project is the one you or your team is the most familiar with that will help you be the most productive and provide the fewest tradeoffs for what you want. In fact I love to read other peoples' completely biased articles on why they choose their framework (or library or text editor or whatever) and I enjoy celebrating their success and happiness over what they've chosen, while I enjoy what I've chosen. If there's anyone else out there like me who chooses Angular for their side projects, I'd love to chat in the comments about what your reasons are! And if you want to bash Angular or another framework for it not being as good as Framework X or Y, I humbly request you save those comments for the posts that encourage it. ❤🌈
