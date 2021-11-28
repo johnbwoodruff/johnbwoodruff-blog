@@ -26,7 +26,6 @@
         <a href="{{ '/' | url }}">{{ metadata.title }}</a>
       </h1>
 
-      {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
       <ul class="nav">
         {%- for entry in collections.all | eleventyNavigation %}
           <li class="nav-item{% if entry.url == page.url %} nav-item-active{% endif %}">
@@ -43,8 +42,6 @@
     <footer class="main-footer">
       <small>Copyright &copy; 2021 &bull; John Woodruff</small>
     </footer>
-
-    <!-- Current page: {{ page.url | url }} -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46243905-9"></script>

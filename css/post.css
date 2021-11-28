@@ -40,6 +40,12 @@ main.tmpl-post img {
   margin: 0 auto;
 }
 
+main.tmpl-post iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+}
+
 main.tmpl-post h1 {
   font-size: 36px;
   font-weight: 700;
