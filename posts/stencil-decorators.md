@@ -13,7 +13,7 @@ cover_image: /img/stenciljs.png
 cover_image_alt: Stencil.js logo
 ---
 
-_This is the fifth in a series of posts about creating a web component library using Stencil.js - Check out the [first post](https://dev.to/johnwoodruff91/component-libraries-with-stenciljs---about-stencil-10b7)_
+_This is the fifth in a series of posts about creating a web component library using Stencil.js - Check out the [first post](/posts/about-stencil/)_
 
 At this point we've built a fairly basic component that looks great and functions correctly. We're now going to move on to a new component that has more complex functionality and interaction. Tabs are one of the basic components every library needs. Each tab is effectively a button, but those buttons work together and maintain a shared state with regards to which tab is currently active. This is a perfect candidate for our next component, as it can use all the rest of the [decorators](https://stenciljs.com/docs/decorators#decorators) Stencil provides.
 

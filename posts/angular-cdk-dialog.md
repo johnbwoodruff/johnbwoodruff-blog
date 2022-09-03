@@ -14,6 +14,10 @@ cover_image: /img/dialog.png
 cover_image_alt: Dialog design
 ---
 
+**Update 2022:** Angular 14 was released, and with it the new [Dialog CDK primitive](https://material.angular.io/cdk/dialog/overview)! It accomplishes essentially the same thing as this post, where you can open a completely unstyled dialog and do all the branding yourself! Unless you need additional functionality that doesn't provide, definitely use the CDK Dialog.
+
+---
+
 _This is the first in a series of posts about using the Angular CDK library to build your own custom components._
 
 If you're building applications using Angular, you probably know about the amazing [Angular Material](https://material.angular.io/) library. It's a component library that implements the Material Design spec. For many teams and applications, particularly those without design resources, it's a fantastic tool for building applications with a high quality design system. I have used it many times with great success.
