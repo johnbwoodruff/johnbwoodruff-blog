@@ -4,9 +4,9 @@
   "description": "My personal website and blog",
   "scripts": {
     "build": "eleventy",
-    "watch": "eleventy --watch",
-    "serve": "eleventy --serve",
-    "start": "eleventy --serve",
+    "watch": "eleventy --watch --port=3000",
+    "serve": "eleventy --serve --port=3000",
+    "start": "eleventy --serve --port=3000",
     "debug": "DEBUG=* eleventy"
   },
   "repository": {
