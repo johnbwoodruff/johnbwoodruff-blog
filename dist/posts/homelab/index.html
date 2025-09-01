@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>My Homelab</title><meta name="description" content="Homelabs are a fantastic way to learn about various tools and technologies but in a safe and non-production environment. This is my homelab in 2023."><!-- Favicon assets --><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><!-- Stylesheets --><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/post.css"><link rel="stylesheet" href="/css/projects.css"><link rel="stylesheet" href="/css/about.css"><link rel="stylesheet" href="/css/404.css"><link rel="stylesheet" href="/css/prism-base16-monokai.dark.css"><!-- RSS Feed --><link rel="alternate" href="/feed.xml" type="application/atom+xml" title="John Woodruff"></head> <body> <header class="main-header"> <h1 class="home"> <a href="/">John Woodruff</a> </h1> <nav> <ul class="nav"> <li class="nav-item"> <a href="/">Home</a> </li> <li class="nav-item"> <a href="/projects/">Projects</a> </li> <li class="nav-item"> <a href="/about/">About Me</a> </li> </ul> </nav> </header> <main class="tmpl-post">   <img src="/img/homelab.png" class="post-cover-image"><h1>My Homelab</h1> <time datetime="2023-01-21T00:00:00.000Z">January 20, 2023</time> <div class="post-tag">homelab</div><div class="post-tag">networking</div><div class="post-tag">automation</div> <p>I have a variety of hobbies, but the most obvious one is playing around with fun technologies. This applies not only to software, which I obviously write for a living and for enjoyment, but also to hardware. Ever since I took apart my parents’ VHS player to see how it worked (RIP that VHS player 🪦) I have loved tinkering with hardware, and have since then built multiple PCs, wired my home for ethernet, installed security cameras, and more. The hardware projects I’ve most recently spent my time doing has been assembling my homelab in my basement, and that’s what this post is about.</p>
+<h2 id="what-is-a-homelab">What is a homelab?</h2>
+<p>Before we dive into my specific homelab, we should cover what a homelab is for those who have never heard the term. It’s a very broad inclusive term that refers to some sort of setup in your house that you can use to tinker, mess around with software or hardware, and generally experiment in the safe confines of your own home and network. This homelab can be as tiny as a single <a href="https://www.raspberrypi.com/products/">Raspberry Pi</a> or old laptop, to something as big as a <a href="https://www.reddit.com/r/HomeDataCenter/">Home Data Center</a>. The foundational concept is the same, however, it’s some place at home to be able to mess around with tools and technologies for the purposes of learning and fun. The great thing is that you don’t have to have a lot of money to build a lot of infrastructure, you can easily use an old machine you have lying around.</p>
+<h2 id="what-can-i-do-with-a-homelab">What can I do with a homelab?</h2>
+<p>You can do a lot with a homelab. Anything you want that your hardware can handle, which is actually probably more than you think. Raspberry Pi’s are surprisingly capable little devices, and even really old hardware can run a lot of open source software on Linux. There are so many common homelab projects and ideas you can find on the internet. A few include:</p>
+<ul>
+<li>Setting up <a href="https://pi-hole.net/">Pi-hole</a> for network-wide adblocking</li>
+<li>Running a <a href="https://www.plex.tv/">Plex</a> media server to host your own media</li>
+<li>Set up a Raspberry Pi with <a href="https://retropie.org.uk/">RetroPie</a> for retro gaming</li>
+<li>Home automation with <a href="https://www.home-assistant.io/">Home Assistant</a> or <a href="https://homebridge.io/">Homebridge</a></li>
+<li>Custom code you write yourself to do whatever you’d like!</li>
+</ul>
+<p>There are so many other things you can do, that list barely scratches the surface of the possibilities. Just find something that sounds cool and get started. There are likely even tutorials that walk you through it!</p>
+<h2 id="my-homelab-hardware">My homelab hardware</h2>
+<p><img src="/img/posts/homelab/rack.jpg" alt="My homelab"></p>
+<p>This is my current homelab. I’ve been working on my homelab for a while, and this is by no means what I started out with. If you’re interested in having a homelab, make sure you try your best to not constantly compare yours to others, because it’s a slippery slope of feeling like you “need” more. (trust me, browsing <a href="https://www.reddit.com/r/homelab">r/homelab</a> often leaves me wanting to buy way more hardware, so I’m constantly needing to resist that urge) So with that out of the way, here’s the hardware I have in my homelab server rack from top to bottom:</p>
+<ol>
+<li>StarTech 25U Open Frame Rack</li>
+<li>1U Brush Panel (makes things look nice with cables coming from the back)</li>
+<li>Ubiquiti Dream Machine Pro</li>
+<li>Ubiquiti Network Video Recorder</li>
+<li>24 Port Patch Panel</li>
+<li>Ubiquiti Switch 24 Port with Power over Ethernet</li>
+<li>24 Port Patch Panel</li>
+<li>Raspberry Pi 1U Rackmount with a Pi 3B+ and a Pi 4B+</li>
+<li>A few blanking panels &#x26; shelf holding my cable modem</li>
+<li>Dell PowerEdge R720 2U Rackmount server</li>
+<li>Synology DS920+ NAS</li>
+<li>StarTech Rackmount Power Strip</li>
+<li>Tripp Lite 300W 1U UPS</li>
+<li>Tripp Lite 900W 2U UPS</li>
+</ol>
+<p>Let’s go through the above.</p>
+<h3 id="ubiquiti-networking">Ubiquiti Networking</h3>
+<p><img src="/img/posts/homelab/ubiquiti.jpg" alt="Ubiquiti"></p>
+<p>All of the Ubiquiti gear is the backbone of my home network. The UDM Pro is my router that provides firewall, VLANs, and more. I love this device and it was actually the first thing that started getting me interested in homelabbing. My Switch then connects all the rest of my hardwired devices such as the server, NAS, and my wireless access points and security cameras. That’s why I have a PoE (power over ethernet) switch, because that’s required for powering my APs and cameras. My Ubiquiti security cameras throughout my house record to the UNVR so I have all my recordings and data locally in my basement rather than in the cloud.</p>
+<h3 id="computing-hardware">Computing Hardware</h3>
+<p><img src="/img/posts/homelab/compute.jpg" alt="Computing Hardware"></p>
+<p>First I have my two Raspberry Pi devices. They’re not currently plugged in since I moved their workloads onto my server recently, but once I have another need for them I’ll plug them back in. I don’t use their power cords because they each have a PoE “hat” which is a little add-on board that makes the Pi able to be powered over ethernet. Previously one was running Pi-hole, and the other was running Hoobs, a HomeBridge platform.</p>
+<p>I also have my Synology NAS (network attached storage) which has two 4 TB hard drives in it currently. (I’ll be adding to it when I am getting close to the storage limit) This NAS hosts my media for my Plex server as well as a lot of backups of PCs and my server virtual machines.</p>
+<p>Finally I’ve got my Dell R720 server. I love this server, I bought it used on Ebay, and have loved using it ever since. It has 192 GB of RAM and a Xeon E5-2630 v2 CPU, and it’s running Proxmox for virtualizing. It’s got more than enough power to host the many services I’ve put on it so far, and there’s plenty of room for more. I also have eight used 2 TB hard drives I bought on Ebay in this server which are used as the server local storage.</p>
+<p>These devices are definitely more than enough compute power for what I use currently. Eventually as I add more services I may outgrow my current hardware, and then I may acquire a little more hardware. The nice thing is the used market for these devices is thriving and can be a very affordable way to acquire this hardware.</p>
+<h2 id="services">Services</h2>
+<p><img src="/img/posts/homelab/containers.jpg" alt="Shipping Containers"></p>
+<p>I run a variety of services in my homelab, almost all of it on my Dell server. Some I run as dedicated VMs, and others I run as docker containers in a Docker VM. There are so many ways to host these services, so I enjoy messing around with many of those methods. Here’s a list in no particular order of the services I’m running in my homelab and a short description of what it’s for.</p>
+<ul>
+<li><a href="https://pi-hole.net/">Pi-hole</a>: Whole home adblocking</li>
+<li><a href="https://hoobs.com/">Hoobs</a>: HomeBridge which allows me to use non-HomeKit devices with Apple’s HomeKit</li>
+<li><a href="https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners">GitHub Actions Self-Hosted Runner</a>: I use this to build and deploy my custom homelab code with GitHub Actions</li>
+<li><a href="https://github.com/louislam/uptime-kuma">Uptime Kuma</a>: A status page to monitor my homelab services</li>
+<li><a href="https://github.com/linuxserver/Heimdall">Heimdall</a>: A homelab dashboard linking to all my services</li>
+<li><a href="https://www.plex.tv/">Plex</a>: A self hosted media server</li>
+<li><a href="https://github.com/portainer/portainer">Portainer</a>: A nice UI to monitor and manage my docker containers</li>
+<li><a href="https://github.com/traefik/traefik">Traefik</a>: Local reverse proxy which allows me to have SSL certificates for my self-hosted services</li>
+<li><a href="https://pterodactyl.io/">Pterodactyl</a>: A game server panel which allows me to spin up game servers for any game like Minecraft or Valheim</li>
+<li><a href="https://grafana.com/">Grafana</a>: A tool to build dashboards with metrics and for searching logs across all my services</li>
+<li>Custom Code: I have a bunch of custom code I’ve written in the form of Slack bots, scripts, and other things that do whatever I want.</li>
+</ul>
+<p>The fun thing about homelabs is you can run whatever you want to experiment with. While I currently run most of my stuff as Docker containers on a single Docker VM, I am planning to spin up a Kubernetes cluster and migrate my services to that so I can distribute the load across multiple nodes as opposed to throwing everything on one big Docker VM. That’s just one item on my list, there are so many cool open source projects and technologies to mess around with, and it’s as simple as just spinning up a VM or container for it and playing around. That’s where the true fun of a homelab lies.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This is the state of my homelab at the beginning of 2023. Honestly I’m super excited to see where it’ll be in a year or two. Maybe there’s enough changes that I end up making this a yearly blog post to go over where my homelab is currently. I highly recommend that everyone who likes technology and messing around with software or hardware should start their own homelab. As I stated before, you can absolutely do a ton without spending a lot of money. Just use an old laptop or Raspberry Pi that’s gathering dust. Use resources like <a href="https://www.reddit.com/r/homelab/">Reddit</a> or YouTube channels like <a href="https://www.youtube.com/@TechnoTim">TechnoTim</a> or <a href="https://www.youtube.com/@JeffGeerling">Jeff Geerling</a> to get ideas, follow tutorials, or just enjoy their content. Or you can just mess around yourself and make a bunch of mistakes. It’s a safe place to do that. And most of all just have a great time.</p>   </main> <footer class="main-footer"> <small>Copyright © 2025 • John Woodruff</small> </footer> <!-- Google Analytics --> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46243905-9"></script> <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-46243905-9');
+    </script> </body> </html>

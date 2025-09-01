@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Component Libraries with Stencil.js - Going Deeper</title><meta name="description" content="The fourth in a series of posts about creating a component library using Stencil.js"><!-- Favicon assets --><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><!-- Stylesheets --><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/post.css"><link rel="stylesheet" href="/css/projects.css"><link rel="stylesheet" href="/css/about.css"><link rel="stylesheet" href="/css/404.css"><link rel="stylesheet" href="/css/prism-base16-monokai.dark.css"><!-- RSS Feed --><link rel="alternate" href="/feed.xml" type="application/atom+xml" title="John Woodruff"></head> <body> <header class="main-header"> <h1 class="home"> <a href="/">John Woodruff</a> </h1> <nav> <ul class="nav"> <li class="nav-item"> <a href="/">Home</a> </li> <li class="nav-item"> <a href="/projects/">Projects</a> </li> <li class="nav-item"> <a href="/about/">About Me</a> </li> </ul> </nav> </header> <main class="tmpl-post">   <img src="/img/stenciljs.png" alt="Stencil.js logo" class="post-cover-image"><h1>Component Libraries with Stencil.js - Going Deeper</h1> <time datetime="2018-09-26T00:00:00.000Z">September 25, 2018</time> <div class="post-tag">stencil</div><div class="post-tag">webcomponents</div><div class="post-tag">typescript</div> <p><em>This is the fourth in a series of posts about creating a web component library using Stencil.js - Check out the <a href="/posts/about-stencil">first post</a></em></p>
+<p>In the last post we created a very simple button component. We’re now going to extend that with more options and functionality to be more fully featured. I personally want to have a couple of color options for this button, a couple of button shapes, and a few sizes.</p>
+<h2 id="component-props">Component Props</h2>
+<p>To start into this, we’ll need a few props to allow the user to specify what they want. Let’s call our props <code>color</code>, <code>shape</code>, and <code>size</code>. We also can have multiple button types such as submit and reset, just like a regular HTML button, so we’ll add that as a prop too.</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F8F8F2">@</span><span style="color:#A6E22E">Prop</span><span style="color:#F8F8F2">()</span></span>
+<span class="line"><span style="color:#F8F8F2">type: </span><span style="color:#E6DB74">'button'</span><span style="color:#F92672"> |</span><span style="color:#E6DB74"> 'reset'</span><span style="color:#F92672"> |</span><span style="color:#E6DB74"> 'submit'</span><span style="color:#F92672"> =</span><span style="color:#E6DB74"> 'button'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F8F8F2">@</span><span style="color:#A6E22E">Prop</span><span style="color:#F8F8F2">()</span></span>
+<span class="line"><span style="color:#F8F8F2">color: </span><span style="color:#E6DB74">'primary'</span><span style="color:#F92672"> |</span><span style="color:#E6DB74"> 'accent'</span><span style="color:#F92672"> |</span><span style="color:#E6DB74"> 'light'</span><span style="color:#F92672"> =</span><span style="color:#E6DB74"> 'primary'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F8F8F2">@</span><span style="color:#A6E22E">Prop</span><span style="color:#F8F8F2">()</span></span>
+<span class="line"><span style="color:#F8F8F2">shape: </span><span style="color:#E6DB74">'square'</span><span style="color:#F92672"> |</span><span style="color:#E6DB74"> 'round'</span><span style="color:#F92672"> =</span><span style="color:#E6DB74"> 'square'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F8F8F2">@</span><span style="color:#A6E22E">Prop</span><span style="color:#F8F8F2">()</span></span>
+<span class="line"><span style="color:#F8F8F2">size: </span><span style="color:#E6DB74">'small'</span><span style="color:#F92672"> |</span><span style="color:#E6DB74"> 'default'</span><span style="color:#F92672"> |</span><span style="color:#E6DB74"> 'large'</span><span style="color:#F92672"> =</span><span style="color:#E6DB74"> 'default'</span><span style="color:#F8F8F2">;</span></span></code></pre>
+<p>If you’ve barely/not used TypeScript before, you’ll notice that instead of defining my types for these props to be of type <code>string</code>, which technically they are, I’m going a step further and defining that each prop can be one of several specific strings. This allows for much more effective IntelliSense when you’re using this component. I’m defining up front a few specific sizes, colors, shapes, and types that I’m going to be implementing. On top of that, I’ve initialized those props to my preferred defaults, so that if you simply call my button component with no defined props, it’ll look like a default button.</p>
+<h2 id="class-map">Class Map</h2>
+<p>Next I’m going to be using those props to build a map of CSS classes to apply to my component. I typically like to define an interface called <code>CssClassMap</code> for this purpose. Let’s create that file at <code>src/utils/interfaces.ts</code>, as it’s something I’ll be reusing for all my components, and use the following content for the file:</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> type</span><span> </span><span style="color:#A6E22E;text-decoration:underline">CssClassMap</span><span style="color:#F92672"> =</span><span style="color:#F8F8F2"> { [</span><span style="color:#FD971F;font-style:italic">className</span><span style="color:#F92672">:</span><span style="color:#66D9EF;font-style:italic"> string</span><span style="color:#F8F8F2">]</span><span style="color:#F92672">:</span><span style="color:#66D9EF;font-style:italic"> boolean</span><span style="color:#F8F8F2"> };</span></span></code></pre>
+<p>As you can see, I’m defining this class map type as a map of a key, the class name, and the value being a boolean. Effectively I’m going to be specifying whether I want classes to be applied or not. Now that we have this interface, let’s write a method that builds this class map on render.</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> class</span><span> </span><span style="color:#A6E22E;text-decoration:underline">Button</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#88846F">  // ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A6E22E">  render</span><span style="color:#F8F8F2">() {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> classMap </span><span style="color:#F92672">=</span><span style="color:#FD971F"> this</span><span style="color:#F8F8F2">.</span><span style="color:#A6E22E">getCssClassMap</span><span style="color:#F8F8F2">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F92672">    return</span><span style="color:#F8F8F2"> (</span></span>
+<span class="line"><span style="color:#F8F8F2">      &#x3C;</span><span style="color:#F92672">button</span><span style="color:#A6E22E"> type</span><span style="color:#F92672">={</span><span style="color:#FD971F">this</span><span style="color:#F8F8F2">.type</span><span style="color:#F92672">}</span><span style="color:#A6E22E"> class</span><span style="color:#F92672">={</span><span style="color:#F8F8F2">classMap</span><span style="color:#F92672">}</span><span style="color:#A6E22E"> disabled</span><span style="color:#F92672">={</span><span style="color:#FD971F">this</span><span style="color:#F8F8F2">.disabled</span><span style="color:#F92672">}</span><span style="color:#F8F8F2">></span></span>
+<span class="line"><span style="color:#F8F8F2">        &#x3C;</span><span style="color:#F92672">slot</span><span style="color:#F8F8F2"> /></span></span>
+<span class="line"><span style="color:#F8F8F2">      &#x3C;/</span><span style="color:#F92672">button</span><span style="color:#F8F8F2">></span></span>
+<span class="line"><span style="color:#F8F8F2">    );</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F92672">  private</span><span style="color:#A6E22E"> getCssClassMap</span><span style="color:#F8F8F2">()</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">CssClassMap</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#F92672">    return</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#F8F8F2">      [</span><span style="color:#FD971F">this</span><span style="color:#F8F8F2">.color]: </span><span style="color:#AE81FF">true</span><span style="color:#F8F8F2">,</span></span>
+<span class="line"><span style="color:#F8F8F2">      [</span><span style="color:#FD971F">this</span><span style="color:#F8F8F2">.shape]: </span><span style="color:#AE81FF">true</span><span style="color:#F8F8F2">,</span></span>
+<span class="line"><span style="color:#F8F8F2">      [</span><span style="color:#FD971F">this</span><span style="color:#F8F8F2">.size]: </span><span style="color:#AE81FF">true</span></span>
+<span class="line"><span style="color:#F8F8F2">    };</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<p>As you can see, I’m calling our function from the render method to get the class map, a fairly simple one in this case, and am applying that to the <code>button</code>. You may also have noticed that I also passed the <code>type</code> prop to the button as well. Now that we have the correct classes being applied, let’s actually implement those classes. First we need the correct colors, so let’s add a few more SCSS variables to our <code>src/styles/variables.scss</code> file.</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="scss"><code><span class="line"><span style="color:#88846F">//...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">// Brand Colors</span></span>
+<span class="line"><span style="color:#F8F8F2">$blue-steel: </span><span style="color:#AE81FF">#4571c4</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F8F8F2">$blue-steel-dark: </span><span style="color:#AE81FF">#315db0</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F8F8F2">$coral: </span><span style="color:#AE81FF">#c75943</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F8F8F2">$coral-dark: </span><span style="color:#AE81FF">#a83a24</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F8F8F2">$light: </span><span style="color:#AE81FF">#f0f1f2</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F8F8F2">$light-dark: </span><span style="color:#AE81FF">#e2e3e4</span><span style="color:#F8F8F2">;</span></span></code></pre>
+<p>Now that we have the variables available, let’s implement the classes themselves. We don’t need to implement the default classes as they are the default that we’ve already implemented.</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="scss"><code><span class="line"><span style="color:#F92672">button</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#88846F">  //...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">  // Color variations</span></span>
+<span class="line"><span style="color:#F92672">  &#x26;</span><span style="color:#A6E22E">.accent</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    background-color</span><span style="color:#F8F8F2">: $coral;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F92672">    &#x26;</span><span style="color:#A6E22E">:hover</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">      background-color</span><span style="color:#F8F8F2">: $coral-dark;</span></span>
+<span class="line"><span style="color:#F8F8F2">    }</span></span>
+<span class="line"><span style="color:#F92672">    &#x26;</span><span style="color:#A6E22E">:active</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">      background-color</span><span style="color:#F8F8F2">: </span><span style="color:#66D9EF">darken</span><span style="color:#F8F8F2">($coral-dark, </span><span style="color:#AE81FF">10</span><span style="color:#F92672">%</span><span style="color:#F8F8F2">);</span></span>
+<span class="line"><span style="color:#F8F8F2">    }</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F92672">  &#x26;</span><span style="color:#A6E22E">.light</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    background-color</span><span style="color:#F8F8F2">: $light;</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    color</span><span style="color:#F8F8F2">: </span><span style="color:#66D9EF">rgba</span><span style="color:#F8F8F2">(</span><span style="color:#AE81FF">0</span><span style="color:#F8F8F2">, </span><span style="color:#AE81FF">0</span><span style="color:#F8F8F2">, </span><span style="color:#AE81FF">0</span><span style="color:#F8F8F2">, </span><span style="color:#AE81FF">0.7</span><span style="color:#F8F8F2">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F92672">    &#x26;</span><span style="color:#A6E22E">:hover</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">      background-color</span><span style="color:#F8F8F2">: $light-dark;</span></span>
+<span class="line"><span style="color:#F8F8F2">    }</span></span>
+<span class="line"><span style="color:#F92672">    &#x26;</span><span style="color:#A6E22E">:active</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">      background-color</span><span style="color:#F8F8F2">: </span><span style="color:#66D9EF">darken</span><span style="color:#F8F8F2">($light-dark, </span><span style="color:#AE81FF">10</span><span style="color:#F92672">%</span><span style="color:#F8F8F2">);</span></span>
+<span class="line"><span style="color:#F8F8F2">    }</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">  // Shape variations</span></span>
+<span class="line"><span style="color:#F92672">  &#x26;</span><span style="color:#A6E22E">.round</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    border-radius</span><span style="color:#F8F8F2">: </span><span style="color:#AE81FF">50</span><span style="color:#F92672">px</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">  // Size variations</span></span>
+<span class="line"><span style="color:#F92672">  &#x26;</span><span style="color:#A6E22E">.small</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    padding</span><span style="color:#F8F8F2">: </span><span style="color:#AE81FF">2</span><span style="color:#F92672">px</span><span style="color:#AE81FF"> 8</span><span style="color:#F92672">px</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    font-size</span><span style="color:#F8F8F2">: </span><span style="color:#AE81FF">12</span><span style="color:#F92672">px</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F92672">  &#x26;</span><span style="color:#A6E22E">.large</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    padding</span><span style="color:#F8F8F2">: </span><span style="color:#AE81FF">8</span><span style="color:#F92672">px</span><span style="color:#AE81FF"> 20</span><span style="color:#F92672">px</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    font-size</span><span style="color:#F8F8F2">: </span><span style="color:#AE81FF">16</span><span style="color:#F92672">px</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<p>For the color changing classes, we need to re-implement our <code>hover</code> and <code>active</code> states. We do not need to re-implement our <code>disabled</code> state since our existing one simply applies a lower opacity, looking great in any color. Making the button round is trivial, and then we finally tweak the <code>padding</code> and <code>font-size</code> of our button to look good as a large or small button.</p>
+<p>Now that we’ve implemented these classes, we have some pretty incredible looking button web components!</p>
+<p><img src="/img/posts/stencil-going-deeper/buttons.png" alt="buttons"></p>
+<h2 id="next-steps">Next Steps</h2>
+<p>We now have an awesome button component we can use anywhere! This is a simple first component, so we’re not dealing with many of the other decorators such as <code>@Watch()</code>, <code>@Method()</code>, or <code>@State()</code>. We’ll get into those with a new component that is more complex in our <a href="/posts/stencil-decorators">next post</a>. See you in the next one!</p>
+<p><em>Simply want to see the end result repo? Check it out <a href="https://github.com/johnbwoodruff/mountain-ui">here</a></em></p>   </main> <footer class="main-footer"> <small>Copyright © 2025 • John Woodruff</small> </footer> <!-- Google Analytics --> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46243905-9"></script> <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-46243905-9');
+    </script> </body> </html>

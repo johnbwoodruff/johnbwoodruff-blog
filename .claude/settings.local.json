@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npm view:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

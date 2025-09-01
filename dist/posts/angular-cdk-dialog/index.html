@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Angular CDK - Creating a Custom Dialog</title><meta name="description" content="The first in a series of posts about using the Angular CDK to create your own custom components. This post uses the Overlay package to create modals."><!-- Favicon assets --><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><!-- Stylesheets --><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/post.css"><link rel="stylesheet" href="/css/projects.css"><link rel="stylesheet" href="/css/about.css"><link rel="stylesheet" href="/css/404.css"><link rel="stylesheet" href="/css/prism-base16-monokai.dark.css"><!-- RSS Feed --><link rel="alternate" href="/feed.xml" type="application/atom+xml" title="John Woodruff"></head> <body> <header class="main-header"> <h1 class="home"> <a href="/">John Woodruff</a> </h1> <nav> <ul class="nav"> <li class="nav-item"> <a href="/">Home</a> </li> <li class="nav-item"> <a href="/projects/">Projects</a> </li> <li class="nav-item"> <a href="/about/">About Me</a> </li> </ul> </nav> </header> <main class="tmpl-post">   <img src="/img/dialog.png" alt="Dialog design" class="post-cover-image"><h1>Angular CDK - Creating a Custom Dialog</h1> <time datetime="2021-11-28T00:00:00.000Z">November 27, 2021</time> <div class="post-tag">angular</div><div class="post-tag">cdk</div><div class="post-tag">typescript</div><div class="post-tag">webdev</div> <p><strong>Update 2022:</strong> Angular 14 was released, and with it the new <a href="https://material.angular.io/cdk/dialog/overview">Dialog CDK primitive</a>! It accomplishes essentially the same thing as this post, where you can open a completely unstyled dialog and do all the branding yourself! Unless you need additional functionality that doesn’t provide, definitely use the CDK Dialog.</p>
+<hr>
+<p><em>This is the first in a series of posts about using the Angular CDK library to build your own custom components.</em></p>
+<p>If you’re building applications using Angular, you probably know about the amazing <a href="https://material.angular.io/">Angular Material</a> library. It’s a component library that implements the Material Design spec. For many teams and applications, particularly those without design resources, it’s a fantastic tool for building applications with a high quality design system. I have used it many times with great success.</p>
+<p>There have been times, however, where I wanted the amazing developer experience of Angular Material, but I couldn’t use the Material design that it implements because the company has an existing design system. It’s precisely for these situations that the Angular team created <a href="https://material.angular.io/cdk/categories">Angular CDK</a>, or the “Component Dev Kit”. According to their website, the CDK is “a set of behavior primitives for building UI components”. The CDK is fantastic because it abstracts away a lot of the really complex behavior implementation in building UI components.</p>
+<p>Because of all these benefits, I try to always utilize the CDK for as much as possible when writing Angular applications. For this series of posts I hope to dig in to as many pieces of the CDK as possible to help you build your own high quality design system. In this post I’m going to specifically talk about building an alternative to <code>MatDialog</code>, as that is a very commonly used service for creating modals.</p>
+<h2 id="dialog-service">Dialog Service</h2>
+<p>In Angular Material, the <code>MatDialog</code> service allows you to pass a component to the service which it will then open in a floating dialog that’s globally centered both horizontally and vertically. Obviously this dialog implements the Material Design spec including animations when opening and closing. Because of this, we want to implement our own design, but the ergonomics of the <code>MatDialog</code> service are great. So our implementation, while not exactly the same, will be similar and provide some of the same features.</p>
+<p>The design of the API is fairly simple, but extendable when needed. We’ll have have an <code>open</code> method that takes in an Angular component to be opened in the dialog. We can also pass data to the component that can be used if needed. This method will return a reference to the dialog that we can use to close it programatically or subscribe to when it’s closed. This API design is simple and easy to extend as needed, but gets us a highly functional dialog service.</p>
+<p>Here is a demo of the finished product with all the features mentioned above. We’ll be going through step by step but you’re welcome to simply reference the code here if preferred.</p>
+<iframe src="https://stackblitz.com/edit/angular-ivy-sdmh7e?embed=1&#x26;file=src/app/dialog/dialog.service.ts" title="stackblitz-example"></iframe>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>First off we need to make sure we’ve got Angular CDK in our app. You have two ways you can do this. The first and least manual is to install it alongside Angular Material, via their provided Angular CLI schematic. Note that this will also install and configure Angular Material, a theme, and set up the styles. This is good in some ways because it includes the Angular CDK styles as part of the Angular Material theme. You can do that by using the following command:</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#A6E22E">$</span><span style="color:#E6DB74"> ng</span><span style="color:#E6DB74"> add</span><span style="color:#E6DB74"> @angular/material</span></span></code></pre>
+<p>If you know for a fact that you’re never going to want to use anything from Angular Material, and only want the CDK, then you can install it by itself from npm. Note that you must install the same version number that matches your Angular version, like so:</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#A6E22E">$</span><span style="color:#E6DB74"> npm</span><span style="color:#E6DB74"> install</span><span style="color:#AE81FF"> --save</span><span style="color:#E6DB74"> @angular/cdk@12.2.13</span></span></code></pre>
+<p>This will not configure any styles, so you’ll need to reference them properly as the docs outline for each piece you use. This is the method I’ll be using in these tutorials because I know I won’t want Angular Material as that is the whole point of this series. So now, no matter the path you chose, you have the Angular CDK installed and ready to go!</p>
+<h2 id="cdk-overlay">CDK Overlay</h2>
+<p>First let me explain how the CDK overlay concept works. There are three pieces to this that work together. There’s the component we want to render, there’s a <a href="https://material.angular.io/cdk/portal/overview">Portal</a> which is a CDK package for rendering dynamic content such as a component, and then there’s an <a href="https://material.angular.io/cdk/overlay/overview">Overlay</a> which is a CDK package for opening floating panels on the screen. Basically what we do is attach a component to a <code>ComponentPortal</code>, then attach that portal to an <code>OverlayRef</code> which we’ll open.</p>
+<p>There are a number of ways you can use the Angular CDK’s overlay. You can use it programmatically or even as directives on markup. In our situation we want to use it programmatically so we can invoke it from anywhere via a service in our logic. So let’s start out by creating a simple Angular service and stubbing out the basic API along with a couple of comments on what needs to be done.</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { ComponentType } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/overlay'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { Injectable } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/core'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F8F8F2">@</span><span style="color:#A6E22E">Injectable</span><span style="color:#F8F8F2">({</span></span>
+<span class="line"><span style="color:#F8F8F2">  providedIn: </span><span style="color:#E6DB74">'root'</span></span>
+<span class="line"><span style="color:#F8F8F2">})</span></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> class</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogService</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">  constructor</span><span style="color:#F8F8F2">() {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A6E22E">  open</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>(</span><span style="color:#FD971F;font-style:italic">component</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">ComponentType</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>) {</span></span>
+<span class="line"><span style="color:#88846F">    // 1. Create the overlay</span></span>
+<span class="line"><span style="color:#88846F">    // 2. Attach component portal to the overlay</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<p>This is the very beginning of our service. We know that we want an <code>open</code> method, and we know it needs to take some component to open. You’ll notice we’re using the type of <code>ComponentType</code> from the Angular CDK overlay package. This is a type that allows us to receive any Angular component, and that’s what is passed to the CDK when instantiating the component. Of course we also have our generic <code>&#x3C;T></code> which will be the type of the component we pass through.</p>
+<h3 id="create-overlay">Create Overlay</h3>
+<p>As we mentioned above we need to first create an overlay. To create an overlay we most importantly need a <a href="https://material.angular.io/cdk/overlay/overview#position-strategies">PositionStrategy</a>. This defines <em>where</em> on the screen we want to open this overlay. There are a couple options, but in this post we’ll be using the <code>GlobalPositionStrategy</code>. This means we won’t be attaching it to a specific element. We also can provide a few more optional configuration options, which we’ll do. Here’s how we create that overlay, injecting the <code>Overlay</code> class in the constructor:</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { Overlay, ComponentType } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/overlay'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#88846F">//...</span></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> class</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogService</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">  constructor</span><span style="color:#F8F8F2">(</span><span style="color:#F92672">private</span><span style="color:#FD971F;font-style:italic"> overlay</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">Overlay</span><span style="color:#F8F8F2">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A6E22E">  open</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>(</span><span style="color:#FD971F;font-style:italic">component</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">ComponentType</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>) {</span></span>
+<span class="line"><span style="color:#88846F">    // Globally centered position strategy</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> positionStrategy </span><span style="color:#F92672">=</span><span style="color:#FD971F"> this</span><span style="color:#F8F8F2">.overlay</span></span>
+<span class="line"><span style="color:#F8F8F2">      .</span><span style="color:#A6E22E">position</span><span style="color:#F8F8F2">()</span></span>
+<span class="line"><span style="color:#F8F8F2">      .</span><span style="color:#A6E22E">global</span><span style="color:#F8F8F2">()</span></span>
+<span class="line"><span style="color:#F8F8F2">      .</span><span style="color:#A6E22E">centerHorizontally</span><span style="color:#F8F8F2">()</span></span>
+<span class="line"><span style="color:#F8F8F2">      .</span><span style="color:#A6E22E">centerVertically</span><span style="color:#F8F8F2">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create the overlay with customizable options</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> overlayRef </span><span style="color:#F92672">=</span><span style="color:#FD971F"> this</span><span style="color:#F8F8F2">.overlay.</span><span style="color:#A6E22E">create</span><span style="color:#F8F8F2">({</span></span>
+<span class="line"><span style="color:#F8F8F2">      positionStrategy,</span></span>
+<span class="line"><span style="color:#F8F8F2">      hasBackdrop: </span><span style="color:#AE81FF">true</span><span style="color:#F8F8F2">,</span></span>
+<span class="line"><span style="color:#F8F8F2">      backdropClass: </span><span style="color:#E6DB74">'overlay-backdrop'</span><span style="color:#F8F8F2">,</span></span>
+<span class="line"><span style="color:#F8F8F2">      panelClass: </span><span style="color:#E6DB74">'overlay-panel'</span></span>
+<span class="line"><span style="color:#F8F8F2">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Attach component portal to the overlay</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<p>We did a couple of things. First, we defined our position strategy. We declared that we want a global strategy, and we want to position the overlay in the center of the screen both horizontally and vertically. You can also position your overlay (similar to absolute positioning) by giving it a top, left, right, or bottom value. This might be useful if you wanted to open a sidepanel or a bottom sheet. Since we’re just making a standard modal, we’re centering it on the screen.</p>
+<p>We’re also defining some information about the panel and backdrop. First we’re defining that we want a backdrop for this modal, as well as providing the backdrop class for that. That’s where we can define how we want to style the backdrop, which I’ll be styling with a darkly translucent backdrop. We’re also providing a panel class, which will be applied to the parent “panel” that we’ll be rendering our component in. I just did some basic styling to make the background white and have a little padding. You can see my styles I provided in <code>src/styles.scss</code>.</p>
+<h3 id="create-component-portal">Create Component Portal</h3>
+<p>Next we need to create our <code>ComponentPortal</code> that we’ll then attach to the overlay. It’s quite straightforward, and we do it like so:</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { Overlay, ComponentType } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/overlay'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { ComponentPortal } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/portal'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#88846F">//...</span></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> class</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogService</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">  constructor</span><span style="color:#F8F8F2">(</span><span style="color:#F92672">private</span><span style="color:#FD971F;font-style:italic"> overlay</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">Overlay</span><span style="color:#F8F8F2">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A6E22E">  open</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>(</span><span style="color:#FD971F;font-style:italic">component</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">ComponentType</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>) {</span></span>
+<span class="line"><span style="color:#88846F">    // Globally centered position strategy</span></span>
+<span class="line"><span style="color:#88846F">    // ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create the overlay with customizable options</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> overlayRef </span><span style="color:#F92672">=</span><span style="color:#FD971F"> this</span><span style="color:#F8F8F2">.overlay.</span><span style="color:#A6E22E">create</span><span style="color:#F8F8F2">({</span></span>
+<span class="line"><span style="color:#88846F">      // ...</span></span>
+<span class="line"><span style="color:#F8F8F2">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Attach component portal to the overlay</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> portal </span><span style="color:#F92672">=</span><span style="color:#F92672"> new</span><span style="color:#A6E22E"> ComponentPortal</span><span style="color:#F8F8F2">(component);</span></span>
+<span class="line"><span style="color:#F8F8F2">    overlayRef.</span><span style="color:#A6E22E">attach</span><span style="color:#F8F8F2">(portal);</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<p>At this point we can successfully open this dialog if we actually call this method and pass a component to it. While we could just leave our service like this, it definitely doesn’t meet the common usecases that we could do with <code>MatDialog</code>. We want to be able return a dialog reference so we can programmatically close the overlay or subscribe to when the overlay gets closed. So let’s add that to our implementation.</p>
+<h3 id="dialog-reference">Dialog Reference</h3>
+<p>Let’s create a simple <code>DialogRef</code> class. It should take in an <code>OverlayRef</code> which we can use to close the overlay, and it should have an rxjs <code>Subject</code> so we can subscribe to when the overlay is closed. So let’s implement this simple class:</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { OverlayRef } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/overlay'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { Subject, Observable } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> 'rxjs'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">/**</span></span>
+<span class="line"><span style="color:#88846F"> * A reference to the dialog itself.</span></span>
+<span class="line"><span style="color:#88846F"> * Can be injected into the component added to the overlay and then used to close itself.</span></span>
+<span class="line"><span style="color:#88846F"> */</span></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> class</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogRef</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#F92672">  private</span><span style="color:#F8F8F2"> afterClosedSubject </span><span style="color:#F92672">=</span><span style="color:#F92672"> new</span><span style="color:#A6E22E"> Subject</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#66D9EF;font-style:italic">any</span><span style="color:#F8F8F2">>();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">  constructor</span><span style="color:#F8F8F2">(</span><span style="color:#F92672">private</span><span style="color:#FD971F;font-style:italic"> overlayRef</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">OverlayRef</span><span style="color:#F8F8F2">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">  /**</span></span>
+<span class="line"><span style="color:#88846F">   * Closes the overlay. You can optionally provide a result.</span></span>
+<span class="line"><span style="color:#88846F">   */</span></span>
+<span class="line"><span style="color:#F92672">  public</span><span style="color:#A6E22E"> close</span><span style="color:#F8F8F2">(</span><span style="color:#FD971F;font-style:italic">result</span><span style="color:#F92672">?:</span><span style="color:#66D9EF;font-style:italic"> any</span><span style="color:#F8F8F2">) {</span></span>
+<span class="line"><span style="color:#FD971F">    this</span><span style="color:#F8F8F2">.overlayRef.</span><span style="color:#A6E22E">dispose</span><span style="color:#F8F8F2">();</span></span>
+<span class="line"><span style="color:#FD971F">    this</span><span style="color:#F8F8F2">.afterClosedSubject.</span><span style="color:#A6E22E">next</span><span style="color:#F8F8F2">(result);</span></span>
+<span class="line"><span style="color:#FD971F">    this</span><span style="color:#F8F8F2">.afterClosedSubject.</span><span style="color:#A6E22E">complete</span><span style="color:#F8F8F2">();</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">  /**</span></span>
+<span class="line"><span style="color:#88846F">   * An Observable that notifies when the overlay has closed</span></span>
+<span class="line"><span style="color:#88846F">   */</span></span>
+<span class="line"><span style="color:#F92672">  public</span><span style="color:#A6E22E"> afterClosed</span><span style="color:#F8F8F2">()</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">Observable</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#66D9EF;font-style:italic">any</span><span style="color:#F8F8F2">> {</span></span>
+<span class="line"><span style="color:#F92672">    return</span><span style="color:#FD971F"> this</span><span style="color:#F8F8F2">.afterClosedSubject.</span><span style="color:#A6E22E">asObservable</span><span style="color:#F8F8F2">();</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<p>Now we need to add this in to our <code>open</code> method so we can create this reference and return it from the method on creation. So let’s put that in here:</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { Overlay, ComponentType } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/overlay'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { ComponentPortal } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/portal'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { DialogRef } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> './dialog-ref'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#88846F">//...</span></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> class</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogService</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">  constructor</span><span style="color:#F8F8F2">(</span><span style="color:#F92672">private</span><span style="color:#FD971F;font-style:italic"> overlay</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">Overlay</span><span style="color:#F8F8F2">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A6E22E">  open</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>(</span><span style="color:#FD971F;font-style:italic">component</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">ComponentType</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>)</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogRef</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#88846F">    // Globally centered position strategy</span></span>
+<span class="line"><span style="color:#88846F">    // ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create the overlay with customizable options</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> overlayRef </span><span style="color:#F92672">=</span><span style="color:#FD971F"> this</span><span style="color:#F8F8F2">.overlay.</span><span style="color:#A6E22E">create</span><span style="color:#F8F8F2">({</span></span>
+<span class="line"><span style="color:#88846F">      // ...</span></span>
+<span class="line"><span style="color:#F8F8F2">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create dialogRef to return</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> dialogRef </span><span style="color:#F92672">=</span><span style="color:#F92672"> new</span><span style="color:#A6E22E"> DialogRef</span><span style="color:#F8F8F2">(overlayRef);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Attach component portal to the overlay</span></span>
+<span class="line"><span style="color:#88846F">    // ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F92672">    return</span><span style="color:#F8F8F2"> dialogRef;</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<p>This is super helpful for the consumer of this API so they can access the dialog. But what about the component we’re opening? We want to be able to allow the component in the overlay to close itself. So how can we pass that <code>dialogRef</code> through? Well, for that we’ll need to create an Injector which we pass to the component portal. This will allow us to then inject the <code>dialogRef</code> in our component. It’s pretty easy to do this, you can do it like so:</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { Injectable, Injector } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/core'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { Overlay, ComponentType } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/overlay'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { ComponentPortal } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/portal'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { DialogRef } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> './dialog-ref'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#88846F">//...</span></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> class</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogService</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">  constructor</span><span style="color:#F8F8F2">(</span><span style="color:#F92672">private</span><span style="color:#FD971F;font-style:italic"> overlay</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">Overlay</span><span style="color:#F8F8F2">, </span><span style="color:#F92672">private</span><span style="color:#FD971F;font-style:italic"> injector</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">Injector</span><span style="color:#F8F8F2">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A6E22E">  open</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>(</span><span style="color:#FD971F;font-style:italic">component</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">ComponentType</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>)</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogRef</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#88846F">    // Globally centered position strategy</span></span>
+<span class="line"><span style="color:#88846F">    // ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create the overlay with customizable options</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> overlayRef </span><span style="color:#F92672">=</span><span style="color:#FD971F"> this</span><span style="color:#F8F8F2">.overlay.</span><span style="color:#A6E22E">create</span><span style="color:#F8F8F2">({</span></span>
+<span class="line"><span style="color:#88846F">      // ...</span></span>
+<span class="line"><span style="color:#F8F8F2">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create dialogRef to return</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> dialogRef </span><span style="color:#F92672">=</span><span style="color:#F92672"> new</span><span style="color:#A6E22E"> DialogRef</span><span style="color:#F8F8F2">(overlayRef);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create injector to be able to reference the DialogRef from within the component</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> injector </span><span style="color:#F92672">=</span><span style="color:#F8F8F2"> Injector.</span><span style="color:#A6E22E">create</span><span style="color:#F8F8F2">({</span></span>
+<span class="line"><span style="color:#F8F8F2">      parent: </span><span style="color:#FD971F">this</span><span style="color:#F8F8F2">.injector,</span></span>
+<span class="line"><span style="color:#F8F8F2">      providers: [{ provide: DialogRef, useValue: dialogRef }]</span></span>
+<span class="line"><span style="color:#F8F8F2">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Attach component portal to the overlay</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> portal </span><span style="color:#F92672">=</span><span style="color:#F92672"> new</span><span style="color:#A6E22E"> ComponentPortal</span><span style="color:#F8F8F2">(component, </span><span style="color:#AE81FF">null</span><span style="color:#F8F8F2">, injector);</span></span>
+<span class="line"><span style="color:#F8F8F2">    overlayRef.</span><span style="color:#A6E22E">attach</span><span style="color:#F8F8F2">(portal);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F92672">    return</span><span style="color:#F8F8F2"> dialogRef;</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<p>Now that we’ve provided an injector to the component portal, we’ll be able to inject the <code>dialogRef</code> in our component very simply like so:</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F8F8F2">@</span><span style="color:#A6E22E">Component</span><span style="color:#F8F8F2">({</span></span>
+<span class="line"><span style="color:#88846F">  // ...</span></span>
+<span class="line"><span style="color:#F8F8F2">})</span></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> class</span><span> </span><span style="color:#A6E22E;text-decoration:underline">LoginComponent</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">  constructor</span><span style="color:#F8F8F2">(</span><span style="color:#F92672">private</span><span style="color:#FD971F;font-style:italic"> dialogRef</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogRef</span><span style="color:#F8F8F2">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A6E22E">  close</span><span style="color:#F8F8F2">() {</span></span>
+<span class="line"><span style="color:#FD971F">    this</span><span style="color:#F8F8F2">.dialogRef.</span><span style="color:#A6E22E">close</span><span style="color:#F8F8F2">();</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<p>Our implementation is much more thorough now that we have a way for the dialog to be programmatically closed from within the component or outside of it. The last major gap in functionality is being able to optionally pass some arbitrary data to the component that is being opened so it can utilize that data as needed.</p>
+<h3 id="dialog-data">Dialog Data</h3>
+<p>In order to pass data to the component, we’ll be using the same method as our <code>dialogRef</code>. In this case, however, we’ll need to <a href="https://angular.io/guide/dependency-injection-in-action#injectiontoken-objects">define our own injection token</a> for the dependency injection system. Let’s start by doing that in a new file, <code>dialog-tokens.ts</code>. It’s going to be a very simple file.</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { InjectionToken } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/core'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> const</span><span style="color:#F8F8F2"> DIALOG_DATA </span><span style="color:#F92672">=</span><span style="color:#F92672"> new</span><span style="color:#A6E22E"> InjectionToken</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#66D9EF;font-style:italic">any</span><span style="color:#F8F8F2">>(</span><span style="color:#E6DB74">'DIALOG_DATA'</span><span style="color:#F8F8F2">);</span></span></code></pre>
+<p>Now that we’ve created a very basic injection token, we can add this to our injector. We also need to update our <code>open</code> method to accept optional data to be passed to the component. As part of that, we’ll define a <code>DialogConfig</code> interface that has optional <code>data</code>. The reason we’re making this a config object like this is so it’s easy to extend later if you wanted to, for example, allow customizing the options for the overlay.</p>
+<pre class="astro-code monokai" style="background-color:#272822;color:#F8F8F2; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { Injectable, Injector } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/core'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { Overlay, ComponentType } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/overlay'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { ComponentPortal } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> '@angular/cdk/portal'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F92672">import</span><span style="color:#F8F8F2"> { DialogRef } </span><span style="color:#F92672">from</span><span style="color:#E6DB74"> './dialog-ref'</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> interface</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogConfig</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#F8F8F2">  data</span><span style="color:#F92672">?:</span><span style="color:#66D9EF;font-style:italic"> any</span><span style="color:#F8F8F2">;</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">//...</span></span>
+<span class="line"><span style="color:#F92672">export</span><span style="color:#66D9EF;font-style:italic"> class</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogService</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">  constructor</span><span style="color:#F8F8F2">(</span><span style="color:#F92672">private</span><span style="color:#FD971F;font-style:italic"> overlay</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">Overlay</span><span style="color:#F8F8F2">, </span><span style="color:#F92672">private</span><span style="color:#FD971F;font-style:italic"> injector</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">Injector</span><span style="color:#F8F8F2">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A6E22E">  open</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>(</span><span style="color:#FD971F;font-style:italic">component</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">ComponentType</span><span style="color:#F8F8F2">&#x3C;</span><span style="color:#A6E22E;text-decoration:underline">T</span><span style="color:#F8F8F2">>, </span><span style="color:#FD971F;font-style:italic">config</span><span style="color:#F92672">?:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogConfig</span><span style="color:#F8F8F2">)</span><span style="color:#F92672">:</span><span> </span><span style="color:#A6E22E;text-decoration:underline">DialogRef</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#88846F">    // Globally centered position strategy</span></span>
+<span class="line"><span style="color:#88846F">    // ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create the overlay with customizable options</span></span>
+<span class="line"><span style="color:#88846F">    // ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create dialogRef to return</span></span>
+<span class="line"><span style="color:#88846F">    // ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Create injector to be able to reference the DialogRef from within the component</span></span>
+<span class="line"><span style="color:#66D9EF;font-style:italic">    const</span><span style="color:#F8F8F2"> injector </span><span style="color:#F92672">=</span><span style="color:#F8F8F2"> Injector.</span><span style="color:#A6E22E">create</span><span style="color:#F8F8F2">({</span></span>
+<span class="line"><span style="color:#F8F8F2">      parent: </span><span style="color:#FD971F">this</span><span style="color:#F8F8F2">.injector,</span></span>
+<span class="line"><span style="color:#F8F8F2">      providers: [</span></span>
+<span class="line"><span style="color:#F8F8F2">        { provide: DialogRef, useValue: dialogRef },</span></span>
+<span class="line"><span style="color:#F8F8F2">        { provide: DIALOG_DATA, useValue: config?.data }</span></span>
+<span class="line"><span style="color:#F8F8F2">      ]</span></span>
+<span class="line"><span style="color:#F8F8F2">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#88846F">    // Attach component portal to the overlay</span></span>
+<span class="line"><span style="color:#88846F">    // ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F92672">    return</span><span style="color:#F8F8F2"> dialogRef;</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">}</span></span></code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>Now that we’ve built this highly reusable service, we’re able to open any component we want in a nicely centered modal! We can optionally provide data to it, and we can reference that dialog externally to close it if we wanted, or subscribe to it closing and react to that as needed. We could take this further, for example, by defining our own transitions and animations for the modal entering and exiting. Or we could easily pass in a config option to change the position strategy so it opens as a sidepanel instead of a centered modal. There are many ways you could tweak this to get exactly what you want, and it’s fully within your control rather than being locked into the Material design dialog design and interactions.</p>
+<p>In my next post I’m going to go over the <code>FlexibleConnectedPositionStrategy</code> that you can use to build things such as tooltips, popovers, dropdowns, and more. I’ll be working hard on that one and hope to have it out soon. Hopefully this helps you get started digging into all the powerful options you have through the Angular CDK, and especially their Overlay package.</p>   </main> <footer class="main-footer"> <small>Copyright © 2025 • John Woodruff</small> </footer> <!-- Google Analytics --> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46243905-9"></script> <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-46243905-9');
+    </script> </body> </html>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, date, cover_image, cover_image_alt, tags } = post.data;
+
+// Format date
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<BaseLayout 
+  title={title} 
+  description={description} 
+  templateClass="tmpl-post"
+>
+  <!-- Optional Cover Image -->
+  {cover_image && (
+    <img src={cover_image} alt={cover_image_alt} class="post-cover-image" />
+  )}
+
+  <h1>{title}</h1>
+
+  <time datetime={date.toISOString()}>{formattedDate}</time>
+
+  {tags && tags.map((tag: string) => (
+    <div class="post-tag">{tag}</div>
+  ))}
+
+  <slot />
+</BaseLayout>

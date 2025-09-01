@@ -1,0 +1,75 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  templateClass?: string;
+}
+
+const { title, description, templateClass } = Astro.props;
+import { SITE } from '../config';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>{title || SITE.title}</title>
+    <meta name="description" content={description || SITE.description} />
+    
+    <!-- Favicon assets -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/post.css" />
+    <link rel="stylesheet" href="/css/projects.css" />
+    <link rel="stylesheet" href="/css/about.css" />
+    <link rel="stylesheet" href="/css/404.css" />
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css" />
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" href="/feed.xml" type="application/atom+xml" title={SITE.title} />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1 class="home">
+        <a href="/">{SITE.title}</a>
+      </h1>
+
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/projects/">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a href="/about/">About Me</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main class={templateClass}>
+      <slot />
+    </main>
+    
+    <footer class="main-footer">
+      <small>Copyright © {new Date().getFullYear()} • John Woodruff</small>
+    </footer>
+    
+    <!-- Google Analytics -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.googleAnalyticsId}`} is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-46243905-9');
+    </script>
+  </body>
+</html>
