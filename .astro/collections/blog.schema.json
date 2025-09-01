@@ -42,6 +42,9 @@
         "cover_image_alt": {
           "type": "string"
         },
+        "ogImage": {
+          "type": "string"
+        },
         "series": {
           "type": "string"
         },

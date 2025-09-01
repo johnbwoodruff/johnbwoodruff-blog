@@ -56,8 +56,9 @@ hr {
   margin: 30px auto;
 }
 
-main pre[class*='language-'] {
+main pre.astro-code {
   padding: 1.5em;
+  line-height: 1.5em;
 }
 
 main :not(pre) code {
