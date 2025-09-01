@@ -21,7 +21,8 @@ const sortedPosts = posts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'
             {post.data.date.toLocaleDateString('en-US', { 
               year: 'numeric', 
               month: 'long', 
-              day: 'numeric' 
+              day: 'numeric',
+              timeZone: 'UTC'
             })}
           </time>
           <a href={`/posts/${post.slug}/`} class="post-title postlist-link">

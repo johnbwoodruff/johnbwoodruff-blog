@@ -108,6 +108,11 @@ main blockquote > p {
   color: var(--text-default);
 }
 
+.main-header nav {
+  justify-self: center;
+  align-self: center;
+}
+
 .main-header .nav {
   display: grid;
   grid-template-columns: repeat(3, min-content);
