@@ -1,6 +1,6 @@
 ---
 title: DigitalOcean JS 1.0 Released!
-published: false
+published: true
 description: A library for the DigitalOcean API written in TypeScript. For use in Node or the browser!
 date: 2018-08-26
 tags:

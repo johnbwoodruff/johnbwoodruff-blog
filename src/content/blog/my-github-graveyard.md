@@ -1,6 +1,6 @@
 ---
 title: RIP Side Projects
-published: false
+published: true
 description: Here lies my dead side projects. They lived quickly, taught excellently, and died quietly. This is my GitHub Graveyard.
 date: 2018-08-14
 tags:

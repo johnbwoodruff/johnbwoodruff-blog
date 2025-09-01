@@ -9,6 +9,14 @@ export interface Props {
 const { title, description, templateClass, ogImage } = Astro.props;
 import { SITE } from '../config';
 
+// Import CSS files
+import '../styles/index.css';
+import '../styles/post.css';
+import '../styles/projects.css';
+import '../styles/about.css';
+import '../styles/404.css';
+import '../styles/prism-base16-monokai.dark.css';
+
 // Get current URL to determine active nav item
 const currentPath = Astro.url.pathname;
 
@@ -47,13 +55,6 @@ const fullOgImageUrl = new URL(ogImageUrl, SITE.url).href;
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="/css/index.css" />
-    <link rel="stylesheet" href="/css/post.css" />
-    <link rel="stylesheet" href="/css/projects.css" />
-    <link rel="stylesheet" href="/css/about.css" />
-    <link rel="stylesheet" href="/css/404.css" />
-    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css" />
     
     <!-- RSS Feed -->
     <link rel="alternate" href="/feed.xml" type="application/atom+xml" title={SITE.title} />
