@@ -13,7 +13,11 @@
     "type": "git",
     "url": "git://github.com/johnbwoodruff/johnbwoodruff-blog.git"
   },
-  "author": "John Woodruff <johnwoodruff91@gmail.com> (https://johnbwoodruff.com)",
+  "author": {
+    "name": "John Woodruff",
+    "email": "johnwoodruff91@gmail.com",
+    "url": "https://johnbwoodruff.com"
+  },
   "license": "MIT",
   "devDependencies": {
     "prettier": "^2.3.2"
@@ -26,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/johnbwoodruff/johnbwoodruff-blog/issues"
   },
-  "homepage": "https://github.com/johnbwoodruff/johnbwoodruff-blog#readme",
+  "homepage": "https://github.com/johnbwoodruff/johnbwoodruff-blog",
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^4.3.4",
