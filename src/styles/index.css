@@ -1,5 +1,114 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
 
+/* Breadcrumb Navigation */
+.breadcrumb {
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumb ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: '›';
+  margin: 0 0.5rem;
+  color: var(--text-tertiary);
+}
+
+.breadcrumb a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb li[aria-current='page'] {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* Related Posts */
+.related-posts {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--background-shade);
+}
+
+.related-posts h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-default);
+}
+
+.related-posts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.related-post-item {
+  border: 1px solid var(--background-shade);
+  overflow: hidden;
+}
+
+.related-post-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.related-post-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.related-post-content {
+  padding: 1rem;
+}
+
+.related-post-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-default);
+  line-height: 1.3;
+}
+
+.related-post-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.75rem 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.related-post-date {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
 /* CSS auto-rebuild working! */
 :root {
   --font-family: 'Source Sans Pro', sans-serif;

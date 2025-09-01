@@ -33,6 +33,7 @@ const fullOgImageUrl = new URL(ogImageUrl, SITE.url).href;
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>{title || SITE.title}</title>
     <meta name="description" content={description || SITE.description} />
+    <link rel="canonical" href={Astro.url.href} />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -55,9 +56,11 @@ const fullOgImageUrl = new URL(ogImageUrl, SITE.url).href;
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     
-    
     <!-- RSS Feed -->
     <link rel="alternate" href="/feed.xml" type="application/atom+xml" title={SITE.title} />
+    
+    <!-- Additional head content from child components -->
+    <slot name="head" />
   </head>
   <body>
     <header class="main-header">
@@ -88,13 +91,13 @@ const fullOgImageUrl = new URL(ogImageUrl, SITE.url).href;
       <small>Copyright © {new Date().getFullYear()} • John Woodruff</small>
     </footer>
     
-    <!-- Google Analytics -->
+    <!-- Google Analytics (GA4) -->
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.googleAnalyticsId}`} is:inline></script>
-    <script is:inline>
+    <script is:inline define:vars={{analyticsId: SITE.googleAnalyticsId}}>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
-      gtag('config', 'UA-46243905-9');
+      gtag('config', analyticsId);
     </script>
   </body>
 </html>
