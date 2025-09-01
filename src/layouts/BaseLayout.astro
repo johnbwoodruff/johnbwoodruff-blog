@@ -7,6 +7,9 @@ export interface Props {
 
 const { title, description, templateClass } = Astro.props;
 import { SITE } from '../config';
+
+// Get current URL to determine active nav item
+const currentPath = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
@@ -42,13 +45,13 @@ import { SITE } from '../config';
 
       <nav>
         <ul class="nav">
-          <li class="nav-item">
+          <li class={`nav-item${currentPath === '/' ? ' nav-item-active' : ''}`}>
             <a href="/">Home</a>
           </li>
-          <li class="nav-item">
+          <li class={`nav-item${currentPath === '/projects/' ? ' nav-item-active' : ''}`}>
             <a href="/projects/">Projects</a>
           </li>
-          <li class="nav-item">
+          <li class={`nav-item${currentPath === '/about/' ? ' nav-item-active' : ''}`}>
             <a href="/about/">About Me</a>
           </li>
         </ul>

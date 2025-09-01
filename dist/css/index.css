@@ -119,7 +119,7 @@ main blockquote > p {
   padding: 0;
 }
 
-.main-header > .nav > .nav-item {
+.main-header .nav > .nav-item {
   display: grid;
   justify-content: center;
   align-content: center;
