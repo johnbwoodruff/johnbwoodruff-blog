@@ -3,13 +3,19 @@ export interface Props {
   title?: string;
   description?: string;
   templateClass?: string;
+  ogImage?: string;
 }
 
-const { title, description, templateClass } = Astro.props;
+const { title, description, templateClass, ogImage } = Astro.props;
 import { SITE } from '../config';
 
 // Get current URL to determine active nav item
 const currentPath = Astro.url.pathname;
+
+// Open Graph image fallback
+const defaultOgImage = '/og-default.svg';
+const ogImageUrl = ogImage || defaultOgImage;
+const fullOgImageUrl = new URL(ogImageUrl, SITE.url).href;
 ---
 
 <!DOCTYPE html>
@@ -19,6 +25,21 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>{title || SITE.title}</title>
     <meta name="description" content={description || SITE.description} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={title || SITE.title} />
+    <meta property="og:description" content={description || SITE.description} />
+    <meta property="og:image" content={fullOgImageUrl} />
+    <meta property="og:site_name" content={SITE.title} />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={Astro.url.href} />
+    <meta name="twitter:title" content={title || SITE.title} />
+    <meta name="twitter:description" content={description || SITE.description} />
+    <meta name="twitter:image" content={fullOgImageUrl} />
     
     <!-- Favicon assets -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

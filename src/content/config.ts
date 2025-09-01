@@ -10,6 +10,7 @@ const blog = defineCollection({
     tags: z.array(z.string()),
     cover_image: z.string().optional(),
     cover_image_alt: z.string().optional(),
+    ogImage: z.string().optional(),
     series: z.string().optional(),
     layout: z.string().optional(), // We'll ignore this in Astro but keep for compatibility
   }),
