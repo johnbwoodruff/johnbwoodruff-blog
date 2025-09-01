@@ -8,6 +8,7 @@ tags:
   - proxmox
   - virtualization
 cover_image: /img/proxmox.png
+cover_image_alt: Proxmox logo
 ---
 
 As I wrote about in my [last post](/posts/homelab) I have been diving into the world of homelabs and the fun and sometimes frustrating world of hosting your own services on your own hardware in your basement. I have been using Proxmox VE as my hypervisor of choice and have been loving it. That being said there are often times where I need to cobble together information from various sources to figure something out, whether it be the Proxmox forums, blog posts, or YouTube videos by a variety of homelabbers.

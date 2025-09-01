@@ -8,6 +8,7 @@ tags:
   - networking
   - automation
 cover_image: /img/homelab.png
+cover_image_alt: Minimal server rack
 ---
 
 I have a variety of hobbies, but the most obvious one is playing around with fun technologies. This applies not only to software, which I obviously write for a living and for enjoyment, but also to hardware. Ever since I took apart my parents' VHS player to see how it worked (RIP that VHS player 🪦) I have loved tinkering with hardware, and have since then built multiple PCs, wired my home for ethernet, installed security cameras, and more. The hardware projects I've most recently spent my time doing has been assembling my homelab in my basement, and that's what this post is about.

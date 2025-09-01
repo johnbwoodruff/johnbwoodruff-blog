@@ -9,6 +9,7 @@ tags:
   - setup
   - windows
 cover_image: /img/wsl2.png
+cover_image_alt: Windows logo alongside Linux logo
 ---
 
 By far my most read blog post was my first, [Epic Development Environment using Windows Subsystem for Linux](/posts/epic-dev-environment-wsl), and to this day it gets many views here on DEV, as well as on Medium where I originally published it, as people search for WSL to find out if it'll work for them. Well, since I published it at the end of 2017, a lot has changed, and I'm not referring to the pandemic in which we all find ourselves. I'm talking about WSL 2.

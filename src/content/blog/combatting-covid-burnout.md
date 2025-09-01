@@ -8,7 +8,7 @@ tags:
   - mentalhealth
   - burnout
 cover_image: /img/burnout.png
-cover_image_alt: Image of a developer at a laptop wearing a facemask
+cover_image_alt: Developer at a laptop wearing a facemask
 ---
 
 I'll be completely honest, I'm feeling tired just thinking about writing this post. But that's not surprising, given the topic I'm writing about. Burnout. I've written about burnout before, whether it be comments on posts, or the chapter I wrote for [Your First Year in Code](https://leanpub.com/firstyearincode). I'm writing about it again because I'm currently feeling quite burned out. This, however, is a different kind of burnout than I've felt before. I've been burned out by too much coding, too little vacation, and other typical burnout reasons. This time there's no work-related reason for my burnout. This time, it's 2020 that is taking its toll on me, as I'm sure it's doing the same to many of you.

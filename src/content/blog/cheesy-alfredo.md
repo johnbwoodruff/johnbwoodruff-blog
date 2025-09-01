@@ -7,6 +7,7 @@ tags:
   - cooking
   - recipes
 cover_image: /img/cheesy-alfredo.png
+cover_image_alt: Bowl of cheesy alfredo pasta
 ---
 
 It's been 7 years since Kraft in their infinite wisdom (read: foolishness) discontinued their Mac & Cheese Cheesy Alfredo. This is not to be confused with their Alfredo Mac & Cheese or any of their other variations on alfredo, this is the "Cheesy Alfredo with Pasta Twists". It was my favorite boxed mac & cheese during the years they sold it. I've been wishing for it to be sold again ever since that devastating day I realized the stores weren't just out of stock, the product was discontinued. To this day, I still check the mac & cheese section every time I go to the grocery store. Well, I finally decided to try to replicate it. I've tried a few different recipes and this is the closest I've gotten to the original. It's not perfect, but I feel like it's 99% of the way there and I've eaten it enough times that my memory of the original flavor is now blending together with this recipe. I'm sure there are some tweaks that could be made to get it even closer, but I'm happy with it as is.

@@ -8,6 +8,7 @@ tags:
   - remote
   - productivity
 cover_image: /img/workspace.png
+cover_image_alt: Office space with desks and computers
 ---
 
 This year I got a new job at a place called [GoReact](https://get.goreact.com/careers/) that allows me to work remote if I wish. I currently am enjoying working remote 3 times a week, and going in to the office on the other 2 days. As such, I needed a comfortable, ergonomic, productive workspace for myself at home. I have the fortune of living in an apartment that has an extra bedroom we don't use, so I use that as my home office. It's taken me close to a year to acquire all the pieces I wanted in a dream office, but I finally have a space put together that helps me feel inspired and productive while working. So, without further ado, here it is:

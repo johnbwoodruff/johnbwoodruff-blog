@@ -9,6 +9,7 @@ tags:
   - setup
   - windows
 cover_image: /img/wsl.png
+cover_image_alt: Windows logo alongide Linux logo
 ---
 
 Like many other developers, I have a handful of side projects I am working on at all times. My work is also my hobby. Whenever a new side project appears, I immediately pursue it because of the excitement of working on something new and shiny! I often feel like the developer in this comic by the excellent [CommitStrip](http://www.commitstrip.com) was written about me.

@@ -8,6 +8,7 @@ tags:
   - career
   - opensource
 cover_image: /img/graveyard.png
+cover_image_alt: Graveyard headstones
 ---
 
 In my previous post, [Epic Development Environment using Windows Subsystem for Linux](/posts/epic-dev-environment-wsl), I opened with my reasoning for buying a new laptop: the many side projects I had going on. Unfortunately, over the years, many of those side projects languished into obscurity and were never looked at again. Recently the venerable [Isaac Lyman](https://twitter.com/isaacandsuch) published the blog post [GitHub Graveyards: I'll show you mine...](https://dev.to/isaacandsuch/github-graveyards-ill-show-you-mine-49lh) and went through all the side projects that fizzled and died for various reasons, why he built them/what he learned from them.

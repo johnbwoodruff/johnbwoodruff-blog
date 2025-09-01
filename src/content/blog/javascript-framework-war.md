@@ -8,6 +8,7 @@ tags:
   - frameworks
   - stateofjs
 cover_image: /img/stateofjs.png
+cover_image_alt: Hand showing peace sign
 ---
 
 The [State of JS](https://stateofjs.com/) survey is live, and with it comes the usual tweets about this or that framework "dominating" others, one or another "has been destroyed", it goes on and on. Even the [survey itself says](https://2018.stateofjs.com/front-end-frameworks/overview/):

@@ -8,6 +8,7 @@ tags:
   - opensource
   - node
 cover_image: /img/digitalocean-js-v1.png
+cover_image_alt: digitalocean-js v1.0
 ---
 
 I've been writing a library, DigitalOcean JS, for the last year in my spare time. I started it because I was building a DigitalOcean mobile app using Ionic for use in managing your DigitalOcean resources from your phone. In looking at the various libraries available for my use, I disliked them for a few reasons, including use of callback functions instead of Promises, only being able to use some in Node and not the browser, among other things. Due to those issues, I decided to build my own that was structured how I would like to use it, with some key goals in mind:

@@ -9,6 +9,7 @@ tags:
   - javascript
   - frontend
 cover_image: /img/angular.png
+cover_image_alt: Laptop with code on screen
 ---
 
 I wanted the title to be painfully obvious. Just in case that didn't make it obvious enough, let me be even more clear. **This is my completely biased opinion.** You possibly vehemently disagree with me on this, _and that's okay._ This is not a post to try to claim Angular is better than React or Vue or Svelt or whatever other framework you're in love with. It's literally a post talking about why I, John Woodruff, choose to use Angular in personal projects small and large. Honestly, I'm not even trying to convince you to use Angular. In fact, my honest advice for picking a framework for a project is to pick the one you know the best, so you can be as productive as possible. So let's get all that out of the way up front, and dive into my **heavily biased** reasons for choosing Angular for personal projects. Keep in mind, when I make a statement it's an entirely opinion-based statement, so take it with a grain of salt.

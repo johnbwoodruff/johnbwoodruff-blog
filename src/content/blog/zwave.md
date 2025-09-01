@@ -8,6 +8,7 @@ tags:
   - homeassistant
   - automation
 cover_image: /img/zwave-homeassistant.png
+cover_image_alt: Home Assistant logo alongside Z-Wave logo
 ---
 
 I have previously written posts about my [Homelab](/posts/homelab), it's a constantly ongoing side project for me. I love home automation, and at the center of my home automation is [Home Assistant](https://www.home-assistant.io/). It's one of my favorite open source projects of all time due to the absolutely incredible range of high quality integrations for basically every smart device and platform imaginable. Also despite how complex this system is, it's surprisingly easy to self host. You can either buy a pre-built device like a [Home Assistant Yellow](https://www.home-assistant.io/yellow/), or you can spin it up on your own server, computer, or even Raspberry Pi. Personally, I'm running Home Assistant OS as a virtual machine on my Proxmox server, and it has worked flawlessly for me. I've already got a bunch of integrations with various smart devices, but most of those are devices with cloud connections to provide the integrations. My long term plan is everything should be local-only, and for that I need a local-only communication protocol. Enter Z-Wave.

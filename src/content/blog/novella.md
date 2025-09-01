@@ -8,6 +8,7 @@ tags:
   - node
   - angular
 cover_image: /img/posts/novella/banner.png
+cover_image_alt: Novella Logo
 ---
 
 I have been looking forward to this post for a long time, but I can finally post it! I've finished my passion project that I've been working on for the last 6 years. Introducing [**Novella**](https://novella.app), the modern, distraction-free writing application.
