@@ -1,45 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
 
-/* Breadcrumb Navigation */
-.breadcrumb {
-  margin-bottom: 1.5rem;
-}
-
-.breadcrumb ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-
-.breadcrumb li {
-  display: flex;
-  align-items: center;
-}
-
-.breadcrumb li:not(:last-child)::after {
-  content: '›';
-  margin: 0 0.5rem;
-  color: var(--text-tertiary);
-}
-
-.breadcrumb a {
-  color: var(--primary);
-  text-decoration: none;
-}
-
-.breadcrumb a:hover {
-  text-decoration: underline;
-}
-
-.breadcrumb li[aria-current='page'] {
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
 /* Related Posts */
 .related-posts {
   margin-top: 3rem;
