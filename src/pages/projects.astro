@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import githubSvg from '/img/github.svg?raw';
+---
+
+<BaseLayout
+  title="Projects"
+  description="Portfolio of John Woodruff's software development projects"
+  templateClass="tmpl-post">
+  <style>
+    :global(.project-footer svg) {
+      width: 16px;
+      height: 16px;
+      display: inline;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+  </style>
+  <section class="projects">
+    <article class="project-card hero-card">
+      <img
+        src="/img/novella-project.png"
+        alt="Novella Project Image"
+        class="hero-image"
+      />
+      <header class="project-header">Novella</header>
+      <section class="project-description">
+        <p>
+          A modern, distraction-free writing application. Built using Electron
+          and Angular, available on Windows and MacOS.
+        </p>
+        <div class="post-tag">electron</div>
+        <div class="post-tag">nodejs</div>
+        <div class="post-tag">angular</div>
+      </section>
+      <footer class="project-footer">
+        <a href="https://novella.app" target="_blank">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+            <path d="M3.6 9h16.8"></path>
+            <path d="M3.6 15h16.8"></path>
+            <path d="M11.5 3a17 17 0 0 0 0 18"></path>
+            <path d="M12.5 3a17 17 0 0 1 0 18"></path>
+          </svg>
+          Website
+        </a>
+      </footer>
+    </article>
+    <article class="project-card">
+      <header class="project-header">digitalocean-js</header>
+      <section class="project-description">
+        <p>
+          JavaScript library for the DigitalOcean API. For use in Node.js and in
+          the browser.
+        </p>
+        <div class="post-tag">typescript</div>
+        <div class="post-tag">nodejs</div>
+      </section>
+      <footer class="project-footer">
+        <a
+          href="https://github.com/johnbwoodruff/digitalocean-js"
+          target="_blank">
+          <Fragment set:html={githubSvg} />
+          Repository
+        </a>
+      </footer>
+    </article>
+    <article class="project-card">
+      <header class="project-header">ngx-joypixels</header>
+      <section class="project-description">
+        <p>
+          An Angular library for easily using JoyPixels' Emoji library in your
+          application.
+        </p>
+        <div class="post-tag">typescript</div>
+        <div class="post-tag">angular</div>
+      </section>
+      <footer class="project-footer">
+        <a
+          href="https://github.com/johnbwoodruff/ngx-joypixels"
+          target="_blank">
+          <Fragment set:html={githubSvg} />
+          Repository
+        </a>
+      </footer>
+    </article>
+    <article class="project-card">
+      <header class="project-header">johnbwoodruff-blog</header>
+      <section class="project-description">
+        <p>
+          This website you're browsing right now. Built from scratch using
+          Astro.
+        </p>
+        <div class="post-tag">astro</div>
+        <div class="post-tag">typescript</div>
+        <div class="post-tag">markdown</div>
+      </section>
+      <footer class="project-footer">
+        <a
+          href="https://github.com/johnbwoodruff/johnbwoodruff-blog"
+          target="_blank">
+          <Fragment set:html={githubSvg} />
+          Repository
+        </a>
+      </footer>
+    </article>
+    <article class="project-card">
+      <header class="project-header">scripture-golf</header>
+      <section class="project-description">
+        <p>
+          An LDS Scripture trivia mobile game built using Ionic and Capacitor.
+        </p>
+        <div class="post-tag">angular</div>
+        <div class="post-tag">ionic</div>
+        <div class="post-tag">capacitor</div>
+      </section>
+      <footer class="project-footer">
+        <a
+          href="https://github.com/johnbwoodruff/scripture-golf"
+          target="_blank">
+          <Fragment set:html={githubSvg} />
+          Repository
+        </a>
+      </footer>
+    </article>
+    <article class="project-card">
+      <header class="project-header">theme-material-dark-soda</header>
+      <section class="project-description">
+        <p>
+          A beautiful and vibrant Material Design theme for Visual Studio Code.
+        </p>
+        <div class="post-tag">vscode</div>
+        <div class="post-tag">theme</div>
+      </section>
+      <footer class="project-footer">
+        <a
+          href="https://github.com/johnbwoodruff/theme-material-dark-soda"
+          target="_blank">
+          <Fragment set:html={githubSvg} />
+          Repository
+        </a>
+      </footer>
+    </article>
+    <article class="project-card">
+      <header class="project-header">open-realms</header>
+      <section class="project-description">
+        <p>
+          An open source alternative to Minecraft's Realms. Built on top of
+          DigitalOcean using Node.js.
+        </p>
+        <div class="post-tag">nodejs</div>
+        <div class="post-tag">digitalocean</div>
+        <div class="post-tag">minecraft</div>
+      </section>
+      <footer class="project-footer">
+        <a href="https://github.com/open-realms" target="_blank">
+          <Fragment set:html={githubSvg} />
+          Repository
+        </a>
+      </footer>
+    </article>
+  </section>
+</BaseLayout>

@@ -1,0 +1,103 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  templateClass?: string;
+  ogImage?: string;
+}
+
+const { title, description, templateClass, ogImage } = Astro.props;
+import { SITE } from '../config';
+
+// Import CSS files
+import '../styles/index.css';
+import '../styles/post.css';
+import '../styles/projects.css';
+import '../styles/about.css';
+import '../styles/404.css';
+import '../styles/prism-base16-monokai.dark.css';
+
+// Get current URL to determine active nav item
+const currentPath = Astro.url.pathname;
+
+// Open Graph image fallback
+const defaultOgImage = '/og-default.svg';
+const ogImageUrl = ogImage || defaultOgImage;
+const fullOgImageUrl = new URL(ogImageUrl, SITE.url).href;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>{title || SITE.title}</title>
+    <meta name="description" content={description || SITE.description} />
+    <link rel="canonical" href={Astro.url.href} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={title || SITE.title} />
+    <meta property="og:description" content={description || SITE.description} />
+    <meta property="og:image" content={fullOgImageUrl} />
+    <meta property="og:site_name" content={SITE.title} />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={Astro.url.href} />
+    <meta name="twitter:title" content={title || SITE.title} />
+    <meta name="twitter:description" content={description || SITE.description} />
+    <meta name="twitter:image" content={fullOgImageUrl} />
+    
+    <!-- Favicon assets -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" href="/feed.xml" type="application/atom+xml" title={SITE.title} />
+    
+    <!-- Additional head content from child components -->
+    <slot name="head" />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1 class="home">
+        <a href="/">{SITE.title}</a>
+      </h1>
+
+      <nav>
+        <ul class="nav">
+          <li class={`nav-item${currentPath === '/' ? ' nav-item-active' : ''}`}>
+            <a href="/">Home</a>
+          </li>
+          <li class={`nav-item${currentPath === '/projects/' ? ' nav-item-active' : ''}`}>
+            <a href="/projects/">Projects</a>
+          </li>
+          <li class={`nav-item${currentPath === '/about/' ? ' nav-item-active' : ''}`}>
+            <a href="/about/">About Me</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main class={templateClass}>
+      <slot />
+    </main>
+    
+    <footer class="main-footer">
+      <small>Copyright © {new Date().getFullYear()} • John Woodruff</small>
+    </footer>
+    
+    <!-- Google Analytics (GA4) -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.googleAnalyticsId}`} is:inline></script>
+    <script is:inline define:vars={{analyticsId: SITE.googleAnalyticsId}}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', analyticsId);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
+import type { CollectionEntry } from 'astro:content';
+import { SITE } from '../config';
+import { getCollection } from 'astro:content';
+import { getRelatedPosts } from '../utils/relatedPosts';
+
+export interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, date, cover_image, cover_image_alt, tags } =
+  post.data;
+
+// Get all published posts for related posts calculation
+const allPosts = await getCollection('blog', ({ data }) => data.published);
+const relatedPosts = getRelatedPosts(post, allPosts, 2);
+
+// Format date using UTC to avoid timezone issues
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC'
+});
+
+// JSON-LD structured data for the blog post
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description: description,
+  image: cover_image ? new URL(cover_image, SITE.url).href : undefined,
+  datePublished: date.toISOString(),
+  dateModified: date.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: SITE.author.name,
+    url: SITE.author.url,
+    sameAs: [SITE.author.url]
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.title,
+    url: SITE.url
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': Astro.url.href
+  },
+  keywords: tags?.join(', ')
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  templateClass="tmpl-post"
+  ogImage={cover_image}>
+  <!-- JSON-LD structured data -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(jsonLd)}
+    slot="head"
+    is:inline
+  />
+
+  <!-- Optional Cover Image -->
+  {
+    cover_image && (
+      <img src={cover_image} alt={cover_image_alt} class="post-cover-image" />
+    )
+  }
+
+  <h1>{title}</h1>
+
+  <time datetime={date.toISOString()}>{formattedDate}</time>
+
+  {tags && tags.map((tag: string) => <div class="post-tag">{tag}</div>)}
+
+  <!-- Article content -->
+  <article>
+    <slot />
+  </article>
+
+  <!-- Related posts -->
+  <RelatedPosts posts={relatedPosts} />
+</BaseLayout>

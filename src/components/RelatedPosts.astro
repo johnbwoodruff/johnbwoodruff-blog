@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+{posts.length > 0 && (
+  <section class="related-posts">
+    <h2>Related Posts</h2>
+    <ul class="related-posts-list">
+      {posts.map((post) => (
+        <li class="related-post-item">
+          <a href={`/posts/${post.slug}/`} class="related-post-link">
+            {post.data.cover_image && (
+              <img 
+                src={post.data.cover_image} 
+                alt={post.data.cover_image_alt} 
+                class="related-post-image"
+              />
+            )}
+            <div class="related-post-content">
+              <h3 class="related-post-title">{post.data.title}</h3>
+              <p class="related-post-description">{post.data.description}</p>
+              <time class="related-post-date" datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric',
+                  timeZone: 'UTC'
+                })}
+              </time>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

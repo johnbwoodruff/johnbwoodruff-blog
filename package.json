@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "My personal website and blog",
   "scripts": {
-    "build": "eleventy",
-    "watch": "eleventy --watch --port=3000",
-    "serve": "eleventy --serve --port=3000",
-    "start": "eleventy --serve --port=3000",
-    "debug": "DEBUG=* eleventy"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "repository": {
     "type": "git",
@@ -20,15 +20,23 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
-    "@11ty/eleventy-navigation": "^0.1.6",
-    "@11ty/eleventy-plugin-rss": "^1.1.1",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.0",
-    "@vidhill/fortawesome-brands-11ty-shortcode": "^1.0.2",
-    "luxon": "^1.26.0",
-    "markdown-it": "^12.0.4",
-    "markdown-it-anchor": "^7.1.0",
     "prettier": "^2.3.2"
   },
-  "dependencies": {}
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/johnbwoodruff/johnbwoodruff-blog/issues"
+  },
+  "homepage": "https://github.com/johnbwoodruff/johnbwoodruff-blog",
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.3.4",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.5.1",
+    "astro": "^5.13.5",
+    "typescript": "^5.9.2"
+  }
 }

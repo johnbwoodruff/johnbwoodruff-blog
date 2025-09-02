@@ -1,0 +1,31 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Main title -->
+  <text x="600" y="280" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="bold">
+    John Woodruff
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="340" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="32">
+    Developer • Tech Enthusiast • Blogger
+  </text>
+  
+  <!-- Website URL -->
+  <text x="600" y="420" text-anchor="middle" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="24">
+    johnbwoodruff.com
+  </text>
+  
+  <!-- Decorative elements -->
+  <circle cx="150" cy="150" r="3" fill="#3b82f6" opacity="0.6"/>
+  <circle cx="1050" cy="480" r="4" fill="#8b5cf6" opacity="0.6"/>
+  <circle cx="200" cy="500" r="2" fill="#06b6d4" opacity="0.6"/>
+  <circle cx="1000" cy="150" r="2" fill="#ef4444" opacity="0.6"/>
+</svg>

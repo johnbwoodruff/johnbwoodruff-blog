@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.published);
+  
+  // Get all unique tags
+  const uniqueTagsSet = new Set<string>();
+  posts.forEach((post: CollectionEntry<'blog'>) => {
+    post.data.tags && post.data.tags.forEach((tag: string) => {
+      uniqueTagsSet.add(tag.toLowerCase().replace(/\s+/g, '-'));
+    });
+  });
+
+  const uniqueTags = Array.from(uniqueTagsSet);
+
+  return uniqueTags.map((tag: string) => {
+    // Get posts for this tag
+    const filteredPosts = posts.filter((post: CollectionEntry<'blog'>) => 
+      post.data.tags && post.data.tags.some((postTag: string) => 
+        postTag.toLowerCase().replace(/\s+/g, '-') === tag
+      )
+    );
+    
+    return {
+      params: { tag },
+      props: { posts: filteredPosts, tag },
+    };
+  });
+}
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  tag: string;
+}
+
+const { posts, tag }: Props = Astro.props;
+const sortedPosts = posts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Convert tag back to display format
+const displayTag = tag.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+// Generate better meta description
+const postCount = sortedPosts.length;
+const metaDescription = `Explore ${postCount} ${postCount === 1 ? 'post' : 'posts'} about ${displayTag}. Articles covering ${displayTag} topics, tutorials, and insights by John Woodruff.`;
+---
+
+<BaseLayout 
+  title={`Posts tagged "${displayTag}"`}
+  description={metaDescription}
+  templateClass="tmpl-home"
+>
+  <h1>Posts tagged "{displayTag}"</h1>
+  
+  <ol reversed class="postlist" style={`counter-reset: start-from ${sortedPosts.length + 1}`}>
+    {sortedPosts.map((post: CollectionEntry<'blog'>, index: number) => (
+      <li class={`postlist-item${index === 0 ? ' featured-post' : ''}`}>
+        {post.data.cover_image && (
+          <a href={`/posts/${post.slug}/`} class="postlist-image-link">
+            <img src={post.data.cover_image} alt={post.data.cover_image_alt} class="post-cover-image"/>
+          </a>
+        )}
+        <section class="post-details">
+          <time class="post-date" datetime={post.data.date.toISOString()}>
+            {post.data.date.toLocaleDateString('en-US', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric',
+              timeZone: 'UTC'
+            })}
+          </time>
+          <a href={`/posts/${post.slug}/`} class="post-title postlist-link">
+            {post.data.title}
+          </a>
+          <p class="post-description">{post.data.description}</p>
+        </section>
+      </li>
+    ))}
+  </ol>
+</BaseLayout>
