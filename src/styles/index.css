@@ -134,7 +134,6 @@ main pre.astro-code {
 main :not(pre) code {
   font-size: 16px;
   color: var(--primary-dark);
-  background-color: var(--primary-lightest);
   padding: 1px 5px;
   border-radius: 3px;
 }

@@ -8,7 +8,8 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: 'shiki',
     shikiConfig: {
-      theme: 'monokai'
+      light: 'github-light',
+      dark: 'github-dark'
     }
   }
 });
